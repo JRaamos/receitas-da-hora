@@ -4,6 +4,7 @@ function FormsLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
+
   useEffect(() => {
     const handleValidation = () => {
       const MIN_PASSWORD_LENGTH = 6;
@@ -16,6 +17,12 @@ function FormsLogin() {
     };
     handleValidation();
   }, [email, password]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    localStorage.setItem('user', JSON.stringify({ email }));
+  };
+
   return (
     <div>
       <h1>Login</h1>
@@ -41,9 +48,10 @@ function FormsLogin() {
           />
         </label>
         <button
-          type="button"
+          type="submit"
           data-testid="login-submit-btn"
           disabled={ isDisabled }
+          onClick={ handleSubmit }
         >
           Entrar
         </button>
