@@ -2,10 +2,14 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import Meals from '../pages/Meals';
-import { renderWithRouterAndRedux } from './helpers/renderWith';
+import { renderWithRouterAndRedux } from '../helpers/renderWith';
+import { mockApiIngredients } from '../helpers/mock';
 
 describe('Testa o a pagina meals', () => {
-  it('Testa se a pagina tem um titulo, um botal de perfil e um botao de pesquisa, e se ao clicar no botao de perfil é redirecionado a pagina de perfil', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn(mockApiIngredients);
+  });
+  it('Testa se a pagina tem um titulo, um botal de perfil e um botao de pesquisa,e testa se ao clicar no botao de pesquisa é rederizado as opções de pesquisa e se ao clicar de novo some as opções de pesquisa, e se ao clicar no botao de perfil é redirecionado a pagina de perfil', () => {
     const { history } = renderWithRouterAndRedux(<Meals />);
     act(() => {
       history.push('/meals');
@@ -27,10 +31,40 @@ describe('Testa o a pagina meals', () => {
     userEvent.click(buttonSearch);
     expect(searchInput).not.toBeInTheDocument();
 
-    act(() => {
-      userEvent.click(buttonProfile);
-    });
+    userEvent.click(buttonProfile);
 
     expect(history.location.pathname).toBe('/profile');
+  });
+  it('Testa se quando clicar no botao de pesquisa é renderizado a barra de pesquisa e as opções de pesquisa junto com o segundo botao de busca, e testa se ao digitar no campo de busca "salmon", escolher a opção ingredites e clicar no botao bucar  se é feito a requisição ao edpoint correto', () => {
+    const { history } = renderWithRouterAndRedux(<Meals />);
+    act(() => {
+      history.push('/meals');
+    });
+
+    const buttonSearch = screen.getByTestId('search-top-btn');
+
+    expect(buttonSearch).toBeInTheDocument();
+    userEvent.click(buttonSearch);
+
+    const searchInput = screen.getByTestId('search-input');
+    const ingredientRadio = screen.getByTestId('ingredient-search-radio');
+    const nameRadio = screen.getByTestId('name-search-radio');
+    const firstLetterRadio = screen.getByTestId('first-letter-search-radio');
+    const buttonSearch2 = screen.getByTestId('exec-search-btn');
+
+    expect(searchInput).toBeInTheDocument();
+    expect(ingredientRadio).toBeInTheDocument();
+    expect(nameRadio).toBeInTheDocument();
+    expect(firstLetterRadio).toBeInTheDocument();
+    expect(buttonSearch2).toBeInTheDocument();
+
+    userEvent.type(searchInput, 'salmon');
+    expect(searchInput).toHaveValue('salmon');
+    userEvent.click(ingredientRadio);
+    expect(ingredientRadio).toBeChecked();
+    userEvent.click(buttonSearch2);
+
+    expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=salmon');
+    expect(global.fetch).toHaveBeenCalledTimes(1);
   });
 });

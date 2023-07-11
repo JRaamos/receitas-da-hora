@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
-import { renderWithRouterAndRedux } from './helpers/renderWith';
+import { renderWithRouterAndRedux } from '../helpers/renderWith';
 import Profile from '../pages/Profile';
 
 describe('Testa o a pagina de favorite-recipes', () => {

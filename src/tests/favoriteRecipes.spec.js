@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { renderWithRouterAndRedux } from './helpers/renderWith';
+import { renderWithRouterAndRedux } from '../helpers/renderWith';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
 
 describe('Testa o a pagina de favorite-recipes', () => {

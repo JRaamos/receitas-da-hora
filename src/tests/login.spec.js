@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import { renderWithRouterAndRedux } from './helpers/renderWith';
+import { renderWithRouterAndRedux } from '../helpers/renderWith';
 
 describe('Testa o a pagina de login', () => {
   it('Testa se a pagina contem os campos de email, senha e botao, se o botão inicial desabilitado e depois de validado o bottão passa a funcionar', () => {

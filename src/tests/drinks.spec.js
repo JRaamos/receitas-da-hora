@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import Drinks from '../pages/Drinks';
-import { renderWithRouterAndRedux } from './helpers/renderWith';
+import { renderWithRouterAndRedux } from '../helpers/renderWith';
 
 describe('Testa o a pagina de drinks', () => {
   it('Testa se a pagina tem um titulo, um botal de perfil e um botao de pesquisa, e se ao clicar no botao de perfil é redirecionado a pagina de perfil', () => {
