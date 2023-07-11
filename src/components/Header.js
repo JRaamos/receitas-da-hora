@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header() {
   const [title, setTitle] = useState('');
   const location = useLocation();
+  const history = useHistory();
   const { pathname } = location;
   const titlePagesIf = pathname === '/profile' || pathname === '/done-recipes'
   || pathname === '/favorite-recipes';
@@ -40,6 +41,7 @@ function Header() {
       </h1>
       <button
         type="button"
+        onClick={ () => history.push('/profile') }
       >
         <img
           src={ profileIcon }
