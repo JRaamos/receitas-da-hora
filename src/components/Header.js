@@ -11,8 +11,9 @@ function Header() {
   const location = useLocation();
   const history = useHistory();
   const { pathname } = location;
-  const titlePagesIf = pathname === '/profile' || pathname === '/done-recipes'
-  || pathname === '/favorite-recipes';
+  const titlePagesIf = pathname === '/profile'
+    || pathname === '/done-recipes'
+    || pathname === '/favorite-recipes';
 
   useEffect(() => {
     const titlePage = () => {
@@ -39,37 +40,24 @@ function Header() {
 
   return (
     <header>
-      <h1 data-testid="page-title">
-        { title }
-      </h1>
-      <button
-        type="button"
-        onClick={ () => history.push('/profile') }
-      >
+      <h1 data-testid="page-title">{title}</h1>
+      <button type="button" onClick={ () => history.push('/profile') }>
         <img
           src={ profileIcon }
           alt="profile icon"
           data-testid="profile-top-btn"
         />
       </button>
-      {
-        titlePagesIf ? null
-          : (
-            <button
-              type="button"
-              onClick={ () => setSearch(!search) }
-            >
-              <img
-                src={ searchIcon }
-                alt="search icon"
-                data-testid="search-top-btn"
-              />
-            </button>
-          )
-      }
-      {
-        !search ? null : <SearchBar />
-      }
+      {titlePagesIf ? null : (
+        <button type="button" onClick={ () => setSearch(!search) }>
+          <img
+            src={ searchIcon }
+            alt="search icon"
+            data-testid="search-top-btn"
+          />
+        </button>
+      )}
+      {!search ? null : <SearchBar />}
     </header>
   );
 }
