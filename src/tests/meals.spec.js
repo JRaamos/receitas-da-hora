@@ -73,7 +73,11 @@ describe('Testa o a pagina meals', () => {
 
 describe('Testa outro endpoint da pesquisa por nome', () => {
   beforeEach(() => {
-    global.fetch = jest.fn(mockApiName);
+    global.fetch = jest.fn(async () => ({
+      json: async () => ({
+        meals: mockApiName,
+      }),
+    }));
   });
   it('Testa se clicar em pesquisar e escolher a opção nome e digitar "Arrabiata" e clicar no botao de pesquisar se é feito a requisição ao endpoint correto', () => {
     const { history } = renderWithRouterAndRedux(<Meals />);
@@ -96,7 +100,11 @@ describe('Testa outro endpoint da pesquisa por nome', () => {
 
 describe('Testa outro endpoint da pesquisa por primeira letra', () => {
   beforeEach(() => {
-    global.fetch = jest.fn(mockApiFirstLatter);
+    global.fetch = jest.fn(async () => ({
+      json: async () => ({
+        meals: mockApiFirstLatter,
+      }),
+    }));
   });
   it('Testa se clicar em pesquisar e escolher a opção primeira letra e digitar "a" e clicar no botao de pesquisar se é feito a requisição ao endpoint correto', () => {
     const { history } = renderWithRouterAndRedux(<Meals />);

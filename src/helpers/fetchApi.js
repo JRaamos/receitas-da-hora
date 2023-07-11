@@ -12,5 +12,5 @@ export const fetchName = async (nome) => {
 export const fetchFirstLetter = async (primeiraLetra) => {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${primeiraLetra}`);
   const data = await response.json();
-  return data.meals;
+  return data;
 };

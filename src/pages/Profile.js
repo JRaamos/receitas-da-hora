@@ -5,7 +5,6 @@ function Profile() {
   return (
     <div>
       <Header title="Profile" />
-      Profile
       <Footer />
     </div>
   );
