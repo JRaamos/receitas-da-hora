@@ -19,6 +19,14 @@ describe('Testa o a pagina meals', () => {
     expect(title).toBeInTheDocument();
     expect(buttonProfile).toBeInTheDocument();
     expect(buttonSearch).toBeInTheDocument();
+
+    userEvent.click(buttonSearch);
+    const searchInput = screen.getByTestId('search-input');
+    expect(searchInput).toBeInTheDocument();
+
+    userEvent.click(buttonSearch);
+    expect(searchInput).not.toBeInTheDocument();
+
     act(() => {
       userEvent.click(buttonProfile);
     });
