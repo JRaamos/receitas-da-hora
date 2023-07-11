@@ -5,6 +5,8 @@ import searchIcon from '../images/searchIcon.svg';
 
 function Header() {
   const [title, setTitle] = useState('');
+  const [search, setSearch] = useState(false);
+
   const location = useLocation();
   const history = useHistory();
   const { pathname } = location;
@@ -54,6 +56,7 @@ function Header() {
           : (
             <button
               type="button"
+              onClick={ () => setSearch(!search) }
             >
               <img
                 src={ searchIcon }
@@ -62,6 +65,16 @@ function Header() {
               />
             </button>
           )
+      }
+      {
+        !search ? null : (
+          <label htmlFor="search-input">
+            <input
+              data-testid="search-input"
+            />
+          </label>
+        )
+
       }
     </header>
   );
