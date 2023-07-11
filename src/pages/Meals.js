@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 function Meals() {
   return (
     <div>
-      <Header title="Meals" />
+      <Header />
       <Footer />
     </div>
   );
