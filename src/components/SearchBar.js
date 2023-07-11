@@ -8,7 +8,7 @@ function SearchBar() {
   const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
 
-  const algumaCoisa = async () => {
+  const controlFetch = async () => {
     if (filter === 'ingrediente') {
       dispatch(fetchApi(await fetchIngredients(search)));
     }
@@ -76,7 +76,7 @@ function SearchBar() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ algumaCoisa }
+        onClick={ controlFetch }
       >
         buscar
       </button>
