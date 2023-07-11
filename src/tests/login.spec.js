@@ -1,15 +1,18 @@
 import { screen } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
 import userEvent from '@testing-library/user-event';
-import { renderWithRouterAndRedux } from './helpers/renderWith';
+import { Router } from 'react-router-dom';
 import App from '../App';
-
-const initicialState = {
-  login: {},
-};
+import { renderWithRouterAndRedux } from './helpers/renderWith';
 
 describe('Testa o a pagina de login', () => {
   it('Testa se a pagina contem os campos de email, senha e botao, se o botão inicial desabilitado e depois de validado o bottão passa a funcionar', () => {
-    renderWithRouterAndRedux(<App />, { initicialState });
+    const history = createMemoryHistory();
+    renderWithRouterAndRedux(
+      <Router history={ history }>
+        <App />
+      </Router>,
+    );
     const inputEmail = screen.getByTestId('email-input');
     const inputPassword = screen.getByTestId('password-input');
     const buttonLogin = screen.getByTestId('login-submit-btn');
@@ -38,5 +41,7 @@ describe('Testa o a pagina de login', () => {
     expect(buttonLogin).toBeEnabled();
 
     userEvent.click(buttonLogin);
+
+    expect(history.location.pathname).toBe('/meals');
   });
 });
