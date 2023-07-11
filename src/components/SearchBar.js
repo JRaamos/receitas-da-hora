@@ -1,22 +1,42 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { fetchApi } from '../redux/actions';
-import { fetchFirstLetter, fetchIngredients, fetchName } from '../helpers/fetchApi';
+import {
+  fetchFirstLetter, fetchIngredients, fetchName,
+  fetchDrinkIngredients,
+  fetchDrinkFirstLetter,
+  fetchDrinkName
+} from '../helpers/fetchApi';
 
 function SearchBar() {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
 
-  const controlFetch = async () => {
+  const location = useLocation();
+  const { pathname } = location;
+  const algumaCoisa = async () => {
     if (filter === 'ingrediente') {
-      dispatch(fetchApi(await fetchIngredients(search)));
+      if (pathname === '/meals') {
+        dispatch(fetchApi(await fetchIngredients(search)));
+      } else if (pathname === '/drinks') {
+        dispatch(fetchApi(await fetchDrinkIngredients(search)));
+      }
     }
     if (filter === 'nome') {
-      dispatch(fetchApi(await fetchName(search)));
+      if (pathname === '/meals') {
+        dispatch(fetchApi(await fetchName(search)));
+      } else if (pathname === '/drinks') {
+        dispatch(fetchApi(await fetchDrinkName(search)));
+      }
     }
     if (filter === 'primeira-letra' && search.length === 1) {
-      dispatch(fetchApi(await fetchFirstLetter(search)));
+      if (pathname === '/meals') {
+        dispatch(fetchApi(await fetchFirstLetter(search)));
+      } else if (pathname === '/drinks') {
+        dispatch(fetchApi(await fetchDrinkFirstLetter(search)));
+      }
     }
     if (filter === 'primeira-letra' && search.length > 1) {
       global.alert('Your search must have only 1 (one) character');
@@ -30,8 +50,8 @@ function SearchBar() {
           data-testid="search-input"
           type="text"
           id="search-input"
-          value={ search }
-          onChange={ ({ target }) => setSearch(target.value) }
+          value={search}
+          onChange={({ target }) => setSearch(target.value)}
         />
       </label>
       <label
@@ -44,7 +64,7 @@ function SearchBar() {
           data-testid="ingredient-search-radio"
           name="seach"
           value="ingrediente"
-          onChange={ ({ target }) => setFilter(target.value) }
+          onChange={({ target }) => setFilter(target.value)}
         />
       </label>
       <label
@@ -57,7 +77,7 @@ function SearchBar() {
           data-testid="name-search-radio"
           name="seach"
           value="nome"
-          onChange={ ({ target }) => setFilter(target.value) }
+          onChange={({ target }) => setFilter(target.value)}
         />
       </label>
       <label
@@ -70,13 +90,13 @@ function SearchBar() {
           data-testid="first-letter-search-radio"
           name="seach"
           value="primeira-letra"
-          onChange={ ({ target }) => setFilter(target.value) }
+          onChange={({ target }) => setFilter(target.value)}
         />
       </label>
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ controlFetch }
+        onClick={algumaCoisa}
       >
         buscar
       </button>
@@ -85,3 +105,4 @@ function SearchBar() {
 }
 
 export default SearchBar;
+
