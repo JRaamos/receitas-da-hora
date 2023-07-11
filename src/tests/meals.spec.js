@@ -3,7 +3,13 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import Meals from '../pages/Meals';
 import { renderWithRouterAndRedux } from '../helpers/renderWith';
-import { mockApiIngredients } from '../helpers/mock';
+import { mockApiIngredients } from '../helpers/mockApiIngredientes';
+import { mockApiName } from '../helpers/mockApiName';
+import { mockApiFirstLatter } from '../helpers/mockApiPrimeiraLetra';
+
+const buttonSearch = () => screen.getByTestId('search-top-btn');
+const searchInput = () => screen.getByTestId('search-input');
+const buttonSearch2 = () => screen.getByTestId('exec-search-btn');
 
 describe('Testa o a pagina meals', () => {
   beforeEach(() => {
@@ -18,17 +24,16 @@ describe('Testa o a pagina meals', () => {
 
     const title = screen.getByTestId('page-title');
     const buttonProfile = screen.getByTestId('profile-top-btn');
-    const buttonSearch = screen.getByTestId('search-top-btn');
 
     expect(title).toBeInTheDocument();
     expect(buttonProfile).toBeInTheDocument();
-    expect(buttonSearch).toBeInTheDocument();
+    expect(buttonSearch()).toBeInTheDocument();
 
-    userEvent.click(buttonSearch);
+    userEvent.click(buttonSearch());
     const ingredientRadio = screen.getByTestId('ingredient-search-radio');
     expect(ingredientRadio).toBeInTheDocument();
 
-    userEvent.click(buttonSearch);
+    userEvent.click(buttonSearch());
     expect(ingredientRadio).not.toBeInTheDocument();
 
     userEvent.click(buttonProfile);
@@ -42,36 +47,72 @@ describe('Testa o a pagina meals', () => {
       history.push('/meals');
     });
 
-    const buttonSearch = screen.getByTestId('search-top-btn');
-
-    expect(buttonSearch).toBeInTheDocument();
-    userEvent.click(buttonSearch);
-
-    const searchInput = screen.getByTestId('search-input');
+    userEvent.click(buttonSearch());
+    searchInput();
     const ingredientRadio = screen.getByTestId('ingredient-search-radio');
     const nameRadio = screen.getByTestId('name-search-radio');
     const firstLetterRadio = screen.getByTestId('first-letter-search-radio');
-    const buttonSearch2 = screen.getByTestId('exec-search-btn');
+    buttonSearch2();
 
-    expect(searchInput).toBeInTheDocument();
+    expect(searchInput()).toBeInTheDocument();
     expect(ingredientRadio).toBeInTheDocument();
     expect(nameRadio).toBeInTheDocument();
     expect(firstLetterRadio).toBeInTheDocument();
-    expect(buttonSearch2).toBeInTheDocument();
+    expect(buttonSearch2()).toBeInTheDocument();
 
-    userEvent.type(searchInput, 'salmon');
-    expect(searchInput).toHaveValue('salmon');
+    userEvent.type(searchInput(), 'salmon');
+    expect(searchInput()).toHaveValue('salmon');
     userEvent.click(ingredientRadio);
     expect(ingredientRadio).toBeChecked();
-    userEvent.click(buttonSearch2);
+    userEvent.click(buttonSearch2());
 
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=salmon');
     expect(global.fetch).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('Testa outro endpoint da pesquisa por nome', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn(mockApiName);
   });
   it('Testa se clicar em pesquisar e escolher a opção nome e digitar "Arrabiata" e clicar no botao de pesquisar se é feito a requisição ao endpoint correto', () => {
     const { history } = renderWithRouterAndRedux(<Meals />);
     act(() => {
       history.push('/meals');
     });
+    userEvent.click(buttonSearch());
+    const nameRadio = screen.getByTestId('name-search-radio');
+    buttonSearch2();
+    searchInput();
+
+    userEvent.click(nameRadio);
+    userEvent.type(searchInput(), 'Arrabiata');
+    userEvent.click(buttonSearch2());
+
+    expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata');
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('Testa outro endpoint da pesquisa por primeira letra', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn(mockApiFirstLatter);
+  });
+  it('Testa se clicar em pesquisar e escolher a opção primeira letra e digitar "a" e clicar no botao de pesquisar se é feito a requisição ao endpoint correto', () => {
+    const { history } = renderWithRouterAndRedux(<Meals />);
+    act(() => {
+      history.push('/meals');
+    });
+    userEvent.click(buttonSearch());
+    const firstLetterRadio = screen.getByTestId('first-letter-search-radio');
+    buttonSearch2();
+    searchInput();
+
+    userEvent.click(firstLetterRadio);
+    userEvent.type(searchInput(), 'a');
+    userEvent.click(buttonSearch2());
+
+    expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?f=a');
+    expect(global.fetch).toHaveBeenCalledTimes(1);
   });
 });

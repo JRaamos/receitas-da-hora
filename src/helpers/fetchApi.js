@@ -6,7 +6,7 @@ export const fetchIngredients = async (ingrediente) => {
 export const fetchName = async (nome) => {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${nome}`);
   const data = await response.json();
-  return data.meals;
+  return data;
 };
 
 export const fetchFirstLetter = async (primeiraLetra) => {
