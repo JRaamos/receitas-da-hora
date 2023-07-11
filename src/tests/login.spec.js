@@ -36,5 +36,7 @@ describe('Testa o a pagina de login', () => {
     userEvent.type(inputEmail, 'exemplo@email.com');
     userEvent.type(inputPassword, '1234567');
     expect(buttonLogin).toBeEnabled();
+
+    userEvent.click(buttonLogin);
   });
 });
