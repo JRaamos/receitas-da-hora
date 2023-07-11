@@ -25,16 +25,17 @@ describe('Testa o a pagina meals', () => {
     expect(buttonSearch).toBeInTheDocument();
 
     userEvent.click(buttonSearch);
-    const searchInput = screen.getByTestId('search-input');
-    expect(searchInput).toBeInTheDocument();
+    const ingredientRadio = screen.getByTestId('ingredient-search-radio');
+    expect(ingredientRadio).toBeInTheDocument();
 
     userEvent.click(buttonSearch);
-    expect(searchInput).not.toBeInTheDocument();
+    expect(ingredientRadio).not.toBeInTheDocument();
 
     userEvent.click(buttonProfile);
 
     expect(history.location.pathname).toBe('/profile');
   });
+
   it('Testa se quando clicar no botao de pesquisa é renderizado a barra de pesquisa e as opções de pesquisa junto com o segundo botao de busca, e testa se ao digitar no campo de busca "salmon", escolher a opção ingredites e clicar no botao bucar  se é feito a requisição ao edpoint correto', () => {
     const { history } = renderWithRouterAndRedux(<Meals />);
     act(() => {
@@ -66,5 +67,11 @@ describe('Testa o a pagina meals', () => {
 
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=salmon');
     expect(global.fetch).toHaveBeenCalledTimes(1);
+  });
+  it('Testa se clicar em pesquisar e escolher a opção nome e digitar "Arrabiata" e clicar no botao de pesquisar se é feito a requisição ao endpoint correto', () => {
+    const { history } = renderWithRouterAndRedux(<Meals />);
+    act(() => {
+      history.push('/meals');
+    });
   });
 });
