@@ -21,7 +21,7 @@ function SearchBar() {
 
   const handleDetailsMealsDrinks = (response) => {
     if (!response) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters');
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
       return;
     }
     if (response.length === 1 && pathname === '/meals') {
