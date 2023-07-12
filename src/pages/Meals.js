@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import RecipesMeals from '../components/RecipesMeals';
+import Recipes from '../components/Recipes';
 
 function Meals() {
   return (
@@ -10,7 +10,7 @@ function Meals() {
         <Header />
       </header>
       <main>
-        <RecipesMeals />
+        <Recipes />
       </main>
       <footer>
         <Footer />
