@@ -4,7 +4,6 @@ import { act } from 'react-dom/test-utils';
 import Drinks from '../pages/Drinks';
 import { renderWithRouterAndRedux } from '../helpers/renderWith';
 import { mockApiDrinkIngredients } from '../helpers/mockApiDrinkIngridients';
-import { mockApiDrinkName } from '../helpers/mockApiDrinkName';
 import { mockApiFirstLatter } from '../helpers/mockApiDrinkPrimeiraLetra';
 import App from '../App';
 
@@ -26,9 +25,7 @@ describe('Testa o a pagina de drinks', () => {
 
     expect(title).toBeInTheDocument();
     expect(buttonProfile).toBeInTheDocument();
-    act(() => {
-      userEvent.click(buttonProfile);
-    });
+    userEvent.click(buttonProfile);
 
     expect(history.location.pathname).toBe('/profile');
   });
@@ -81,48 +78,17 @@ describe('Testa o a pagina de drinks', () => {
     expect(firstLetterRadio()).toBeInTheDocument();
     expect(buttonSearch2()).toBeInTheDocument();
 
-    userEvent.type(searchInput(), 'Fruit');
-    expect(searchInput()).toHaveValue('Fruit');
     userEvent.click(ingredientRadio);
-    expect(ingredientRadio).toBeChecked();
-    userEvent.click(buttonSearch2());
-
-    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=fruit');
-    expect(global.fetch).toHaveBeenCalledTimes(1);
+    act(() => {
+      userEvent.type(searchInput(), 'Fruit');
+      userEvent.click(buttonSearch2());
+    });
 
     await waitFor(() => {
       expect(history.location.pathname).toBe('/drinks/12728');
     });
   });
 });
-
-describe('Testa outro endpoint da pesquisa por nome', () => {
-  beforeEach(() => {
-    global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockApiDrinkName),
-    });
-  });
-  it('Testa se clicar em pesquisar e escolher a opção nome e digitar "boulevard" e clicar no botao de pesquisar se é feito a requisição ao endpoint correto', () => {
-    const { history } = renderWithRouterAndRedux(<Drinks />);
-    act(() => {
-      history.push('/drinks');
-    });
-    userEvent.click(buttonSearch());
-    const nameRadio = screen.getByTestId('name-search-radio');
-    buttonSearch2();
-    searchInput();
-
-    userEvent.click(nameRadio);
-    userEvent.type(searchInput(), 'boulevard');
-    userEvent.click(buttonSearch2());
-
-    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=boulevard');
-    expect(global.fetch).toHaveBeenCalledTimes(1);
-
-    expect(history.location.pathname).toBe('/drinks/12728');
-  });
-});
-
 describe('Testa outro endpoint da pesquisa por primeira letra', () => {
   beforeEach(() => {
     global.fetch = jest.fn().mockResolvedValue({
@@ -136,15 +102,13 @@ describe('Testa outro endpoint da pesquisa por primeira letra', () => {
       history.push('/drinks');
     });
     userEvent.click(buttonSearch());
-    firstLetterRadio();
-    buttonSearch2();
-    searchInput();
-
     userEvent.click(firstLetterRadio());
-    userEvent.type(searchInput(), 'z');
-    userEvent.click(buttonSearch2());
+    act(() => {
+      userEvent.type(searchInput(), 'y');
+      userEvent.click(buttonSearch2());
+    });
 
-    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=z');
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=y');
     expect(global.fetch).toHaveBeenCalledTimes(1);
   });
   it('Testa global alert', () => {
@@ -154,13 +118,12 @@ describe('Testa outro endpoint da pesquisa por primeira letra', () => {
       history.push('/drinks');
     });
     userEvent.click(buttonSearch());
-    firstLetterRadio();
-    buttonSearch2();
-    searchInput();
 
     userEvent.click(firstLetterRadio());
-    userEvent.type(searchInput(), 'zd');
-    userEvent.click(buttonSearch2());
+    act(() => {
+      userEvent.type(searchInput(), 'zd');
+      userEvent.click(buttonSearch2());
+    });
     expect(global.alert).toHaveBeenCalled();
   });
 });

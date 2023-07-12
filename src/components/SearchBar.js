@@ -18,6 +18,7 @@ function SearchBar() {
   const history = useHistory();
   const location = useLocation();
   const { pathname } = location;
+  const validateFilter = filter === 'primeira-letra';
 
   const handleDetailsMealsDrinks = (response) => {
     if (!response) {
@@ -32,39 +33,43 @@ function SearchBar() {
     dispatch(fetchApi(response));
   };
 
-  const handleFetch = async () => {
+  const handleFetchMeals = async () => {
+    if (validateFilter && search.length > 1) {
+      global.alert('Your search must have only 1 (one) character');
+      return;
+    }
+    if (filter === 'ingrediente') {
+      const response = await fetchIngredients(search);
+      handleDetailsMealsDrinks(response);
+    }
+
+    if (filter === 'nome') {
+      const response = await fetchName(search);
+      handleDetailsMealsDrinks(response);
+    }
+
+    if (validateFilter && search.length === 1) {
+      const response = await fetchFirstLetter(search);
+      handleDetailsMealsDrinks(response);
+    }
+  };
+
+  const handleFetchDrinks = async () => {
     if (filter === 'primeira-letra' && search.length > 1) {
       global.alert('Your search must have only 1 (one) character');
       return;
     }
     if (filter === 'ingrediente') {
-      if (pathname === '/meals') {
-        const response = await fetchIngredients(search);
-        handleDetailsMealsDrinks(response);
-      } else if (pathname === '/drinks') {
-        const response = await fetchDrinkIngredients(search);
-        handleDetailsMealsDrinks(response);
-      }
-      return;
+      const response = await fetchDrinkIngredients(search);
+      handleDetailsMealsDrinks(response);
     }
     if (filter === 'nome') {
-      if (pathname === '/meals') {
-        const response = await fetchName(search);
-        handleDetailsMealsDrinks(response);
-      } else if (pathname === '/drinks') {
-        const response = await fetchDrinkName(search);
-        handleDetailsMealsDrinks(response);
-      }
-      return;
+      const response = await fetchDrinkName(search);
+      handleDetailsMealsDrinks(response);
     }
-    if (filter === 'primeira-letra' && search.length === 1) {
-      if (pathname === '/meals') {
-        const response = await fetchFirstLetter(search);
-        handleDetailsMealsDrinks(response);
-      } else if (pathname === '/drinks') {
-        const response = await fetchDrinkFirstLetter(search);
-        handleDetailsMealsDrinks(response);
-      }
+    if (validateFilter && search.length === 1) {
+      const response = await fetchDrinkFirstLetter(search);
+      handleDetailsMealsDrinks(response);
     }
   };
 
@@ -121,7 +126,14 @@ function SearchBar() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ handleFetch }
+        onClick={ () => {
+          if (pathname === '/meals') {
+            handleFetchMeals();
+          }
+          if (pathname === '/drinks') {
+            handleFetchDrinks();
+          }
+        } }
       >
         buscar
       </button>

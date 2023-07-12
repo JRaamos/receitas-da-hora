@@ -53,6 +53,7 @@ describe('Teste de rotas da pagina drink', () => {
     act(() => {
       userEvent.click(buttonSearch2);
     });
+
     await waitFor(() => expect(history.location.pathname).toBe('/drinks/17251'));
   });
 });
