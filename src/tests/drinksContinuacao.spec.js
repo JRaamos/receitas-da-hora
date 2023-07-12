@@ -2,7 +2,6 @@ import userEvent from '@testing-library/user-event';
 import { act, screen, waitFor } from '@testing-library/react';
 import { renderWithRouterAndRedux } from '../helpers/renderWith';
 import App from '../App';
-import Drinks from '../pages/Drinks';
 import { mockApiDrinkName } from '../helpers/mockApiDrinkName';
 
 describe('Testa o endpoint de ingredientes', () => {
@@ -30,14 +29,12 @@ describe('Testa o endpoint de ingredientes', () => {
 });
 describe('Teste de rotas da pagina drink', () => {
   beforeEach(() => {
-    global.fetch = jest.fn(async () => ({
-      json: async () => ({
-        meals: mockApiDrinkName,
-      }),
-    }));
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockApiDrinkName),
+    });
   });
   it('Testa se ao digitar "Boulevardier" no campo de buca e escolher a opção nome e clicar em bucar se a pagina é redirecionada para "/drink/17251', async () => {
-    const { history } = renderWithRouterAndRedux(<Drinks />);
+    const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push('/drinks');
     });

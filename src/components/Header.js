@@ -6,7 +6,7 @@ import SearchBar from './SearchBar';
 
 function Header() {
   const [title, setTitle] = useState('');
-  const [search, setSearch] = useState(false);
+  const [pesquisa, setPesquisa] = useState(false);
 
   const location = useLocation();
   const history = useHistory();
@@ -49,7 +49,7 @@ function Header() {
         />
       </button>
       {titlePagesIf ? null : (
-        <button type="button" onClick={ () => setSearch(!search) }>
+        <button type="button" onClick={ () => setPesquisa(!pesquisa) }>
           <img
             src={ searchIcon }
             alt="search icon"
@@ -57,7 +57,7 @@ function Header() {
           />
         </button>
       )}
-      {!search ? null : <SearchBar />}
+      {!pesquisa ? null : <SearchBar />}
     </header>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch } from 'react-redux';
@@ -13,28 +13,24 @@ import { fetchApi } from '../redux/actions';
 function SearchBar() {
   const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
-  const [data, setData] = useState([]);
 
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
   const { pathname } = location;
 
-  useEffect(() => {
-    const handleDetailsMealsDrinks = () => {
-      if (!data) {
-        global.alert('Sorry, we haven\'t found any recipes for these filters');
-        return;
-      }
-      if (data.length === 1 && pathname === '/meals') {
-        history.push(`/meals/${data[0].idMeal}`);
-      } if (data.length === 1 && pathname === '/drinks') {
-        history.push(`/drinks/${data[0].idDrink}`);
-      }
-      dispatch(fetchApi(data));
-    };
-    handleDetailsMealsDrinks();
-  }, [data]);
+  const handleDetailsMealsDrinks = (response) => {
+    if (!response) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters');
+      return;
+    }
+    if (response.length === 1 && pathname === '/meals') {
+      history.push(`/meals/${response[0].idMeal}`);
+    } if (response.length === 1 && pathname === '/drinks') {
+      history.push(`/drinks/${response[0].idDrink}`);
+    }
+    dispatch(fetchApi(response));
+  };
 
   const handleFetch = async () => {
     if (filter === 'primeira-letra' && search.length > 1) {
@@ -44,30 +40,30 @@ function SearchBar() {
     if (filter === 'ingrediente') {
       if (pathname === '/meals') {
         const response = await fetchIngredients(search);
-        setData(response);
+        handleDetailsMealsDrinks(response);
       } else if (pathname === '/drinks') {
         const response = await fetchDrinkIngredients(search);
-        setData(response);
+        handleDetailsMealsDrinks(response);
       }
       return;
     }
     if (filter === 'nome') {
       if (pathname === '/meals') {
         const response = await fetchName(search);
-        setData(response);
+        handleDetailsMealsDrinks(response);
       } else if (pathname === '/drinks') {
         const response = await fetchDrinkName(search);
-        setData(response);
+        handleDetailsMealsDrinks(response);
       }
       return;
     }
     if (filter === 'primeira-letra' && search.length === 1) {
       if (pathname === '/meals') {
         const response = await fetchFirstLetter(search);
-        setData(response);
+        handleDetailsMealsDrinks(response);
       } else if (pathname === '/drinks') {
         const response = await fetchDrinkFirstLetter(search);
-        setData(response);
+        handleDetailsMealsDrinks(response);
       }
     }
   };
