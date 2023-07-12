@@ -83,15 +83,16 @@ describe('Testa outro endpoint da pesquisa por nome', () => {
     const { history } = renderWithRouterAndRedux(<Meals />);
     act(() => {
       history.push('/meals');
+      userEvent.click(buttonSearch());
     });
-    userEvent.click(buttonSearch());
     const nameRadio = screen.getByTestId('name-search-radio');
     buttonSearch2();
     searchInput();
-
-    userEvent.click(nameRadio);
-    userEvent.type(searchInput(), 'Arrabiata');
-    userEvent.click(buttonSearch2());
+    act(() => {
+      userEvent.click(nameRadio);
+      userEvent.type(searchInput(), 'Arrabiata');
+      userEvent.click(buttonSearch2());
+    });
 
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata');
     expect(global.fetch).toHaveBeenCalledTimes(1);

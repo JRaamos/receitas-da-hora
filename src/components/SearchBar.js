@@ -21,20 +21,26 @@ function SearchBar() {
   const { pathname } = location;
 
   useEffect(() => {
-    const handleDetailsMeals = () => {
+    const handleDetailsMealsDrinks = () => {
+      if (!data) {
+        global.alert('Sorry, we haven\'t found any recipes for these filters');
+        return;
+      }
       if (data.length === 1 && pathname === '/meals') {
         history.push(`/meals/${data[0].idMeal}`);
-      } else if (data.length === 1 && pathname === '/drinks') {
+      } if (data.length === 1 && pathname === '/drinks') {
         history.push(`/drinks/${data[0].idDrink}`);
-      } else if (data === null) {
-        global.alert('Sorry, we haven\'t found any recipes for these filters');
       }
       dispatch(fetchApi(data));
     };
-    handleDetailsMeals();
+    handleDetailsMealsDrinks();
   }, [data]);
 
   const handleFetch = async () => {
+    if (filter === 'primeira-letra' && search.length > 1) {
+      global.alert('Your search must have only 1 (one) character');
+      return;
+    }
     if (filter === 'ingrediente') {
       if (pathname === '/meals') {
         const response = await fetchIngredients(search);
@@ -43,6 +49,7 @@ function SearchBar() {
         const response = await fetchDrinkIngredients(search);
         setData(response);
       }
+      return;
     }
     if (filter === 'nome') {
       if (pathname === '/meals') {
@@ -52,6 +59,7 @@ function SearchBar() {
         const response = await fetchDrinkName(search);
         setData(response);
       }
+      return;
     }
     if (filter === 'primeira-letra' && search.length === 1) {
       if (pathname === '/meals') {
@@ -61,9 +69,6 @@ function SearchBar() {
         const response = await fetchDrinkFirstLetter(search);
         setData(response);
       }
-    }
-    if (filter === 'primeira-letra' && search.length > 1) {
-      global.alert('Your search must have only 1 (one) character');
     }
   };
 
