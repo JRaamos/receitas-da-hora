@@ -79,7 +79,7 @@ describe('Testa outro endpoint da pesquisa por nome', () => {
       }),
     }));
   });
-  it('Testa se clicar em pesquisar e escolher a opção nome e digitar "Arrabiata" e clicar no botao de pesquisar se é feito a requisição ao endpoint correto', () => {
+  it('Testa se clicar em pesquisar e escolher a opção nome e digitar "Arrabiata" e clicar no botao de pesquisar se é feito a requisição ao endpoint correto', async () => {
     const { history } = renderWithRouterAndRedux(<Meals />);
     act(() => {
       history.push('/meals');
@@ -97,7 +97,6 @@ describe('Testa outro endpoint da pesquisa por nome', () => {
     expect(global.fetch).toHaveBeenCalledTimes(1);
   });
 });
-
 describe('Testa outro endpoint da pesquisa por primeira letra', () => {
   beforeEach(() => {
     global.fetch = jest.fn(async () => ({

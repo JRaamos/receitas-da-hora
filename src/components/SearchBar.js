@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useDispatch } from 'react-redux';
 import {
   fetchFirstLetter, fetchIngredients, fetchName,
   fetchDrinkIngredients,
   fetchDrinkFirstLetter,
   fetchDrinkName,
 } from '../helpers/fetchApi';
+import { fetchApi } from '../redux/actions';
 
 function SearchBar() {
   const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
   const [data, setData] = useState([]);
 
+  const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
   const { pathname } = location;
@@ -26,6 +29,7 @@ function SearchBar() {
       } else if (data === null) {
         global.alert('Sorry, we haven\'t found any recipes for these filters');
       }
+      dispatch(fetchApi(data));
     };
     handleDetailsMeals();
   }, [data]);
@@ -53,7 +57,6 @@ function SearchBar() {
       if (pathname === '/meals') {
         const response = await fetchFirstLetter(search);
         setData(response);
-        handleDetailsMeals();
       } else if (pathname === '/drinks') {
         const response = await fetchDrinkFirstLetter(search);
         setData(response);
