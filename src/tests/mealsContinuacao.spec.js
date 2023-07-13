@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { mockApiName } from '../helpers/mockApiName';
 import { renderWithRouterAndRedux } from '../helpers/renderWith';
+import { mealsCategories } from '../helpers/mockApiCategory';
 
 describe('Teste de rotas da pagina drink', () => {
   beforeEach(() => {
@@ -32,5 +33,31 @@ describe('Teste de rotas da pagina drink', () => {
       userEvent.click(buttonSearch2);
     });
     await waitFor(() => expect(history.location.pathname).toBe('/meals/52771'));
+  });
+});
+describe('Teste botões de categoria', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mealsCategories),
+    });
+  });
+  it('Testa se ao carregar a pagina os botões de categoria existem', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+      history.push('/meals');
+    });
+    expect(history.location.pathname).toBe('/meals');
+
+    const beef = await screen.findByTestId('Beef-category-filter');
+    const breakfast = await screen.findByTestId('Breakfast-category-filter');
+    const chicken = await screen.findByTestId('Chicken-category-filter');
+    const dessert = await screen.findByTestId('Dessert-category-filter');
+    const goat = await screen.findByTestId('Goat-category-filter');
+
+    expect(beef).toBeInTheDocument();
+    expect(breakfast).toBeInTheDocument();
+    expect(chicken).toBeInTheDocument();
+    expect(dessert).toBeInTheDocument();
+    expect(goat).toBeInTheDocument();
   });
 });
