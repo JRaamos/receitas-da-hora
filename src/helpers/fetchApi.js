@@ -44,6 +44,7 @@ export const fetchAPIId = async (id, type) => {
   const response = await fetch(`${useUrl}${id}`);
   const data = await response.json();
   return data[type][0];
+};
 
 export const fetchAllDrinks = async () => {
   const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
