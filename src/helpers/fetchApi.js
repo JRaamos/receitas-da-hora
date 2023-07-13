@@ -36,6 +36,15 @@ export const fetchDrinkFirstLetter = async (primeiraLetra) => {
   const data = await response.json();
   return data.drinks;
 };
+
+export const fetchAPIId = async (id, type) => {
+  const urlMeals = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+  const urlDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+  const useUrl = type === 'meals' ? urlMeals : urlDrinks;
+  const response = await fetch(`${useUrl}${id}`);
+  const data = await response.json();
+  return data[type][0];
+
 export const fetchAllDrinks = async () => {
   const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   const data = await response.json();
