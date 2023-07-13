@@ -35,11 +35,9 @@ describe('Teste de rotas da pagina drink', () => {
     await waitFor(() => expect(history.location.pathname).toBe('/meals/52771'));
   });
 });
-describe('Teste botões de categoria', () => {
+describe('Teste botões de categoria na pagina meals', () => {
   beforeEach(() => {
-    global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mealsCategories),
-    });
+    global.fetch = jest.fn(mealsCategories);
   });
   it('Testa se ao carregar a pagina os botões de categoria existem', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
@@ -59,5 +57,19 @@ describe('Teste botões de categoria', () => {
     expect(chicken).toBeInTheDocument();
     expect(dessert).toBeInTheDocument();
     expect(goat).toBeInTheDocument();
+  });
+  it('Testa se ao clicar no botão de categoria "Beef" é feito a requisição para o endpoint da api de meals com a categoria beef', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+      history.push('/meals');
+    });
+    expect(history.location.pathname).toBe('/meals');
+
+    const beef = await screen.findByTestId('Beef-category-filter');
+    userEvent.click(beef);
+
+    expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef');
+
+    userEvent.click(beef);
   });
 });

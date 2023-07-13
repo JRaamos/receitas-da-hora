@@ -39,7 +39,8 @@ function Recipes() {
     if (pathname === '/meals') {
       const results = await fetchFilterCategoryMeals(categoryName);
       dispatch(fetchApi(results));
-    } else if (pathname === '/drinks') {
+    }
+    if (pathname === '/drinks') {
       const results = await fetchFilterCategoryDrinks(categoryName);
       dispatch(fetchApi(results));
     }

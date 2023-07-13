@@ -3,6 +3,7 @@ import { act, screen, waitFor } from '@testing-library/react';
 import { renderWithRouterAndRedux } from '../helpers/renderWith';
 import App from '../App';
 import { mockApiDrinkName } from '../helpers/mockApiDrinkName';
+import { drinksCategories } from '../helpers/mockApiCategory';
 
 describe('Testa o endpoint de ingredientes', () => {
   it('Testa global alert', async () => {
@@ -55,5 +56,25 @@ describe('Teste de rotas da pagina drink', () => {
     });
 
     await waitFor(() => expect(history.location.pathname).toBe('/drinks/17251'));
+  });
+});
+describe('Teste botões de categoria na pagina drinks', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn(drinksCategories);
+  });
+  it('Testa se ao clicar em Cacoa é feito a requisição para o endpoint da api de drinks com a categoria cocoa', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+      history.push('/drinks');
+    });
+    expect(history.location.pathname).toBe('/drinks');
+
+    const all = screen.getByTestId('All-category-filter');
+    const cocoa = await screen.findByTestId('Cocoa-category-filter');
+    userEvent.click(cocoa);
+
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocoa');
+
+    userEvent.click(all);
   });
 });
