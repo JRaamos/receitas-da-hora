@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
-import { fetchAllDrinks, fetchAllMeals } from '../helpers/fetchApi';
+import { fetchAllDrinks,
+  fetchAllMeals, fetchDrinksCategories, fetchMealsCategories } from '../helpers/fetchApi';
 import { fetchApi } from '../redux/actions';
 
 function Recipes() {
@@ -9,17 +10,22 @@ function Recipes() {
   const location = useLocation();
   const { pathname } = location;
   const number = 12;
+  const numberCategori = 5;
   const response = useSelector(({ api }) => api.response);
   const cloneApi = response.slice(0, number);
+  const [data, setData] = useState([]);
+  const cloneData = data.slice(0, numberCategori);
 
   useEffect(() => {
     const fetch = async () => {
       if (pathname === '/meals') {
         const results = await fetchAllMeals();
         dispatch(fetchApi(results));
+        setData(await fetchMealsCategories());
       } else if (pathname === '/drinks') {
         const results = await fetchAllDrinks();
         dispatch(fetchApi(results));
+        setData(await fetchDrinksCategories());
       }
     };
     fetch();
@@ -27,6 +33,17 @@ function Recipes() {
 
   return (
     <div>
+      {
+        cloneData.map((categoryName, index) => (
+          <button
+            key={ index }
+            data-testid={ `${categoryName.strCategory}-category-filter` }
+          >
+            {categoryName.strCategory}
+          </button>
+        ))
+
+      }
       {
         pathname === '/drinks'
       && cloneApi.map((recipe, index) => (
@@ -39,6 +56,7 @@ function Recipes() {
           />
         </div>
       ))
+
       }
       {
         pathname === '/meals'
@@ -53,6 +71,7 @@ function Recipes() {
           </div>
         ))
       }
+
     </div>
   );
 }
