@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom';
 import { fetchAllDrinks, fetchAllMeals, fetchDrinksCategories,
   fetchFilterCategoryDrinks, fetchFilterCategoryMeals,
   fetchMealsCategories } from '../helpers/fetchApi';
@@ -71,18 +72,23 @@ function Recipes() {
         onClick={ () => { fetchMealsDrinks(); } }
       >
         All
-
       </button>
       {
         pathname === '/drinks'
       && cloneApi.map((recipe, index) => (
         <div key={ index } data-testid={ `${index}-recipe-card` }>
-          <h1 data-testid={ `${index}-card-name` }>{recipe.strDrink}</h1>
-          <img
-            src={ recipe.strDrinkThumb }
-            alt={ recipe.strDrink }
-            data-testid={ `${index}-card-img` }
-          />
+          <Link to={ `/drinks/${recipe.idDrink}` }>
+            <h1
+              data-testid={ `${index}-card-name` }
+            >
+              {recipe.strDrink}
+            </h1>
+            <img
+              src={ recipe.strDrinkThumb }
+              alt={ recipe.strDrink }
+              data-testid={ `${index}-card-img` }
+            />
+          </Link>
         </div>
       ))
 
@@ -91,12 +97,14 @@ function Recipes() {
         pathname === '/meals'
         && cloneApi.map((recipe, index) => (
           <div key={ index } data-testid={ `${index}-recipe-card` }>
-            <h1 data-testid={ `${index}-card-name` }>{recipe.strMeal}</h1>
-            <img
-              src={ recipe.strMealThumb }
-              alt={ recipe.strMeal }
-              data-testid={ `${index}-card-img` }
-            />
+            <Link to={ `/meals/${recipe.idMeal}` }>
+              <h1 data-testid={ `${index}-card-name` }>{recipe.strMeal}</h1>
+              <img
+                src={ recipe.strMealThumb }
+                alt={ recipe.strMeal }
+                data-testid={ `${index}-card-img` }
+              />
+            </Link>
           </div>
         ))
       }
