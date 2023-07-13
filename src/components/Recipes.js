@@ -8,6 +8,7 @@ import { fetchApi } from '../redux/actions';
 
 function Recipes() {
   const [data, setData] = useState([]);
+  const [toggle, setToggle] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
   const { pathname } = location;
@@ -50,7 +51,14 @@ function Recipes() {
             key={ index }
             data-testid={ `${categoryName.strCategory}-category-filter` }
             type="button"
-            onClick={ () => handleFetchFilter(categoryName.strCategory) }
+            onClick={ () => {
+              if (toggle) {
+                fetchMealsDrinks();
+              } else {
+                handleFetchFilter(categoryName.strCategory);
+              }
+              setToggle(!toggle);
+            } }
           >
             {categoryName.strCategory}
           </button>
