@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { fetchAllDrinks, fetchAllMeals,
   fetchApiDrikId, fetchApiMealsId } from '../helpers/fetchApi';
 import './RecipeDetails.css';
@@ -11,6 +12,7 @@ function RecipeDetails() {
   const [isMeals, setIsMeals] = useState(false);
   const [recomendacao, setRecomendacao] = useState([]);
   const [inProgress, setInProgress] = useState(false);
+  const history = useHistory();
   const { pathname } = location;
 
   const continueRecipe = () => {
@@ -24,7 +26,15 @@ function RecipeDetails() {
       setInProgress(true);
     }
   };
-
+  const handleRedirect = () => {
+    const type = pathname.split('/')[1];
+    const id = pathname.split('/')[2];
+    if (type === 'meals') {
+      history.push(`/meals/${id}/in-progress`);
+    } else if (type === 'drinks') {
+      history.push(`/drinks/${id}/in-progress`);
+    }
+  };
   useEffect(() => {
     const recipeDetaisl = async () => {
       const number = 6;
@@ -173,6 +183,7 @@ function RecipeDetails() {
         type="button"
         className="start-recipe-btn"
         data-testid="start-recipe-btn"
+        onClick={ handleRedirect }
       >
         {inProgress ? 'Continue Recipe' : 'Star Recipe'}
       </button>
