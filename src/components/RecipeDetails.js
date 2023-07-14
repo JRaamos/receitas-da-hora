@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useLocation, useHistory } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
 import { fetchAllDrinks, fetchAllMeals,
   fetchApiDrikId, fetchApiMealsId } from '../helpers/fetchApi';
 import './RecipeDetails.css';
+import shareIcon from '../images/shareIcon.svg';
 
 function RecipeDetails() {
   const location = useLocation();
@@ -12,8 +13,10 @@ function RecipeDetails() {
   const [isMeals, setIsMeals] = useState(false);
   const [recomendacao, setRecomendacao] = useState([]);
   const [inProgress, setInProgress] = useState(false);
+  const [copyLink, setCopyLink] = useState(false);
   const history = useHistory();
   const { pathname } = location;
+  const copy = clipboardCopy;
 
   const continueRecipe = () => {
     const id = pathname.split('/')[2];
@@ -34,6 +37,11 @@ function RecipeDetails() {
     } else if (type === 'drinks') {
       history.push(`/drinks/${id}/in-progress`);
     }
+  };
+
+  const handleShare = () => {
+    copy(`http://localhost:3000${pathname}`);
+    setCopyLink(true);
   };
   useEffect(() => {
     const recipeDetaisl = async () => {
@@ -73,6 +81,33 @@ function RecipeDetails() {
 
   return (
     <div>
+      {
+        copyLink && <p>Link copied!</p>
+      }
+      <button
+        type="button"
+        className="start-recipe-btn"
+        data-testid="start-recipe-btn"
+        onClick={ handleRedirect }
+      >
+        {inProgress ? 'Continue Recipe' : 'Star Recipe'}
+      </button>
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ handleShare }
+      >
+        <img
+          src={ shareIcon }
+          alt="share"
+        />
+      </button>
+      <button
+        type="button"
+        data-testid="favorite-btn"
+      >
+        favoritar
+      </button>
       {
         isMeals ? (
 
@@ -179,26 +214,7 @@ function RecipeDetails() {
           </div>
         )
       }
-      <button
-        type="button"
-        className="start-recipe-btn"
-        data-testid="start-recipe-btn"
-        onClick={ handleRedirect }
-      >
-        {inProgress ? 'Continue Recipe' : 'Star Recipe'}
-      </button>
-      <button
-        type="button"
-        data-testid="share-btn"
-      >
-        compartilhar
-      </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-      >
-        favoritar
-      </button>
+
     </div>
 
   );
