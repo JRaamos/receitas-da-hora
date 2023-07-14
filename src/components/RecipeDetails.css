@@ -14,3 +14,9 @@
   object-fit: cover;
   width: 200px;
 }
+
+.start-recipe-btn {
+  bottom: 0;
+  position: fixed;
+  z-index: 1;
+}
