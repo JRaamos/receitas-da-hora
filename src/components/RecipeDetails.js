@@ -187,7 +187,20 @@ function RecipeDetails() {
       >
         {inProgress ? 'Continue Recipe' : 'Star Recipe'}
       </button>
+      <button
+        type="button"
+        data-testid="share-btn"
+      >
+        compartilhar
+      </button>
+      <button
+        type="button"
+        data-testid="favorite-btn"
+      >
+        favoritar
+      </button>
     </div>
+
   );
 }
 export default RecipeDetails;
