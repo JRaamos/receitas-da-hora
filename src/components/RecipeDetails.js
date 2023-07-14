@@ -5,6 +5,8 @@ import { fetchAllDrinks, fetchAllMeals,
   fetchApiDrikId, fetchApiMealsId } from '../helpers/fetchApi';
 import './RecipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
+import MealsDetails from './MealsDetails';
+import DrinksDetails from './DrinksDetails';
 
 function RecipeDetails() {
   const location = useLocation();
@@ -14,6 +16,7 @@ function RecipeDetails() {
   const [recomendacao, setRecomendacao] = useState([]);
   const [inProgress, setInProgress] = useState(false);
   const [copyLink, setCopyLink] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const history = useHistory();
   const { pathname } = location;
   const copy = clipboardCopy;
@@ -79,6 +82,43 @@ function RecipeDetails() {
     setIngredients(listIngredients);
   }, [item]);
 
+  const handleFavorite = () => {
+    const favoritList = JSON.parse(localStorage.getItem('favoriteRecipes'))
+      ? JSON.parse(localStorage.getItem('favoriteRecipes')) : [];
+    const type = pathname.split('/')[1];
+    if (type === 'meals') {
+      const favoritarMeals = [...favoritList,
+        {
+          id: item.idMeal,
+          type: 'meal',
+          nationality: item.strArea,
+          category: item.strCategory,
+          alcoholicOrNot: '',
+          name: item.strMeal,
+          image: item.strMealThumb,
+        }];
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(favoritarMeals),
+      );
+    }
+    if (type === 'drinks') {
+      const favoritarDrinks = [...favoritList,
+        {
+          id: item.idDrink,
+          type: 'drink',
+          category: item.strCategory,
+          alcoholicOrNot: item.strAlcoholic,
+          name: item.strDrink,
+          nationality: '',
+          image: item.strDrinkThumb,
+        }];
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(favoritarDrinks),
+      );
+    }
+  };
   return (
     <div>
       {
@@ -105,118 +145,30 @@ function RecipeDetails() {
       <button
         type="button"
         data-testid="favorite-btn"
+        onClick={ () => {
+          handleFavorite();
+          setFavorite(!favorite);
+        } }
       >
         favoritar
       </button>
       {
         isMeals ? (
+          <MealsDetails
+            item={ item }
+            ingredients={ ingredients }
+            recomendacao={ recomendacao }
+          />
 
-          <div>
-            <h1 data-testid="recipe-title">{item && item.strMeal}</h1>
-            <img
-              src={ item && item.strMealThumb }
-              alt={ item && item.strMeal }
-              data-testid="recipe-photo"
-            />
-            <p data-testid="recipe-category">{item && item.strCategory}</p>
-            <p data-testid="instructions">{item && item.strInstructions}</p>
-            <ul>
-              {ingredients.map((ingredient, index) => (
-                <li
-                  key={ index }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  { `${item[ingredient]} - ${item[`strMeasure${index + 1}`]}` }
-                </li>
-              ))}
-            </ul>
-            <iframe
-              width="560"
-              height="315"
-              src={ item && item.strYoutube }
-              allow="accelerometer; autoplay; clipboard-write;
-           encrypted-media; gyroscope; picture-in-picture"
-              title="YouTube video player"
-              data-testid="video"
-            />
-            <h2>Recomendadas</h2>
-            <section
-              className="recomendation"
-            >
-              {
-                recomendacao.map((recomend, index) => (
-                  <div
-                    key={ index }
-                    data-testid={ `${index}-recommendation-card` }
-                    className="recomendation-card"
-                  >
-                    <img
-                      src={ recomend.strDrinkThumb }
-                      alt={ recomend.strDrink }
-                      className="recomendation-img"
-                    />
-                    <p
-                      data-testid={ `${index}-recommendation-title` }
-                    >
-                      { recomend.strDrink }
-                    </p>
-                  </div>
-                ))
-              }
-            </section>
-          </div>
         ) : (
-          <div>
-            <h1 data-testid="recipe-title">{item && item.strDrink}</h1>
-            <img
-              src={ item && item.strDrinkThumb }
-              alt={ item && item.strDrink }
-              data-testid="recipe-photo"
-            />
-            <p data-testid="recipe-category">{item && item.strCategory}</p>
-            <p data-testid="instructions">{item && item.strInstructions}</p>
-            <p data-testid="recipe-category">
-              { item.strAlcoholic }
-            </p>
-            <section>
-              {ingredients.map((ingredient, index) => (
-                <p
-                  key={ index }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  { `${item[ingredient]} - ${item[`strMeasure${index + 1}`]}` }
-                </p>
-              ))}
-            </section>
-            <h2>Recomendadas</h2>
-            <section className="recomendation">
-              {
-                recomendacao.map((recomend, index) => (
-                  <div
-                    key={ index }
-                    data-testid={ `${index}-recommendation-card` }
-                    className="recomendation-card"
-                  >
-                    <img
-                      src={ recomend.strMealThumb }
-                      alt={ recomend.strMeal }
-                      className="recomendation-img"
-                    />
-                    <p
-                      data-testid={ `${index}-recommendation-title` }
-                    >
-                      { recomend.strMeal }
-                    </p>
-                  </div>
-                ))
-              }
-            </section>
-          </div>
+          <DrinksDetails
+            item={ item }
+            ingredients={ ingredients }
+            recomendacao={ recomendacao }
+          />
         )
       }
-
     </div>
-
   );
 }
 export default RecipeDetails;

@@ -27,5 +27,12 @@ describe('Testa o endpoint de detalhes de uma receita de drinks', () => {
     expect(img).toBeInTheDocument();
     expect(category).toHaveLength(2);
     expect(instructions).toBeInTheDocument();
+
+    const share = screen.getByTestId('share-btn');
+    expect(share).toBeInTheDocument();
+
+    const favorite = screen.getByTestId('favorite-btn');
+    expect(favorite).toBeInTheDocument();
+    userEvent.click(favorite);
   });
 });

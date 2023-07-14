@@ -33,5 +33,11 @@ describe('Testa o endpoint de detalhes de uma receita de drinks', () => {
     expect(video).toBeInTheDocument();
     expect(recomendation).toBeInTheDocument();
     expect(recomendationTitle).toBeInTheDocument();
+    const share = screen.getByTestId('share-btn');
+    expect(share).toBeInTheDocument();
+
+    const favorite = screen.getByTestId('favorite-btn');
+    expect(favorite).toBeInTheDocument();
+    userEvent.click(favorite);
   });
 });
