@@ -1,0 +1,16 @@
+.recomendation {
+  display: flex;
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.recomendation-card {
+  min-width: 100%;
+  scroll-snap-align: start;
+}
+
+.recomendation-img {
+  height: 200px;
+  object-fit: cover;
+  width: 200px;
+}

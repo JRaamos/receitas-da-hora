@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { fetchAllDrinks, fetchAllMeals,
   fetchApiDrikId, fetchApiMealsId } from '../helpers/fetchApi';
+import './RecipeDetails.css';
 
 function RecipeDetails() {
   const location = useLocation();
@@ -13,18 +14,22 @@ function RecipeDetails() {
 
   useEffect(() => {
     const recipeDetaisl = async () => {
+      const number = 6;
+
       const type = pathname.split('/')[1];
       const id = pathname.split('/')[2];
       if (type === 'meals') {
         const data = await fetchApiMealsId(id);
         setIsMeals(true);
         setItem(data[0]);
-        setRecomendacao(await fetchAllDrinks());
+        const response = await fetchAllDrinks();
+        setRecomendacao(response.slice(0, number));
       } else if (type === 'drinks') {
         const data = await fetchApiDrikId(id, type);
         setItem(data[0]);
         setIsMeals(false);
-        setRecomendacao(await fetchAllMeals());
+        const response = await fetchAllMeals();
+        setRecomendacao(response.slice(0, number));
       }
     };
     recipeDetaisl();
@@ -40,9 +45,7 @@ function RecipeDetails() {
 
     setIngredients(listIngredients);
   }, [item]);
-  console.log(recomendacao);
   return (
-
     <div>
       {
         isMeals ? (
@@ -75,7 +78,31 @@ function RecipeDetails() {
               title="YouTube video player"
               data-testid="video"
             />
-
+            <h2>Recomendadas</h2>
+            <section
+              className="recomendation"
+            >
+              {
+                recomendacao.map((recomend, index) => (
+                  <div
+                    key={ index }
+                    data-testid={ `${index}-recommendation-card` }
+                    className="recomendation-card"
+                  >
+                    <img
+                      src={ recomend.strDrinkThumb }
+                      alt={ recomend.strDrink }
+                      className="recomendation-img"
+                    />
+                    <p
+                      data-testid={ `${index}-recommendation-title` }
+                    >
+                      { recomend.strDrink }
+                    </p>
+                  </div>
+                ))
+              }
+            </section>
           </div>
         ) : (
           <div>
@@ -100,10 +127,33 @@ function RecipeDetails() {
                 </p>
               ))}
             </section>
+            <h2>Recomendadas</h2>
+            <section className="recomendation">
+              {
+                recomendacao.map((recomend, index) => (
+                  <div
+                    key={ index }
+                    data-testid={ `${index}-recommendation-card` }
+                    className="recomendation-card"
+                  >
+                    <img
+                      src={ recomend.strMealThumb }
+                      alt={ recomend.strMeal }
+                      className="recomendation-img"
+                    />
+                    <p
+                      data-testid={ `${index}-recommendation-title` }
+                    >
+                      { recomend.strMeal }
+                    </p>
+                  </div>
+                ))
+              }
+            </section>
           </div>
-
         )
       }
+
     </div>
   );
 }
