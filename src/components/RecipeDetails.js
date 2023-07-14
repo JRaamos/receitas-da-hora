@@ -10,7 +10,20 @@ function RecipeDetails() {
   const [ingredients, setIngredients] = useState([]);
   const [isMeals, setIsMeals] = useState(false);
   const [recomendacao, setRecomendacao] = useState([]);
+  const [inProgress, setInProgress] = useState(false);
   const { pathname } = location;
+
+  const continueRecipe = () => {
+    const id = pathname.split('/')[2];
+    const type = pathname.split('/')[1];
+    const idLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (idLocalStorage && type === 'meals' && idLocalStorage.meals[id]) {
+      setInProgress(true);
+    }
+    if (idLocalStorage && type === 'drinks' && idLocalStorage.drinks[id]) {
+      setInProgress(true);
+    }
+  };
 
   useEffect(() => {
     const recipeDetaisl = async () => {
@@ -33,7 +46,9 @@ function RecipeDetails() {
       }
     };
     recipeDetaisl();
+    continueRecipe();
   }, []);
+
   useEffect(() => {
     const ingredientsKeys = item.length !== 0 ? Object.keys(item)
       .filter((key) => key.includes('strIngredient'))
@@ -45,6 +60,7 @@ function RecipeDetails() {
 
     setIngredients(listIngredients);
   }, [item]);
+
   return (
     <div>
       {
@@ -158,7 +174,7 @@ function RecipeDetails() {
         className="start-recipe-btn"
         data-testid="start-recipe-btn"
       >
-        Star Recipe
+        {inProgress ? 'Continue Recipe' : 'Star Recipe'}
       </button>
     </div>
   );
