@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { fetchApiDrikId, fetchApiMealsId } from '../helpers/fetchApi';
+import { fetchAllDrinks, fetchAllMeals,
+  fetchApiDrikId, fetchApiMealsId } from '../helpers/fetchApi';
 
 function RecipeDetails() {
   const location = useLocation();
   const [item, setItem] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [isMeals, setIsMeals] = useState(false);
+  const [recomendacao, setRecomendacao] = useState([]);
   const { pathname } = location;
 
   useEffect(() => {
@@ -17,10 +19,12 @@ function RecipeDetails() {
         const data = await fetchApiMealsId(id);
         setIsMeals(true);
         setItem(data[0]);
+        setRecomendacao(await fetchAllDrinks());
       } else if (type === 'drinks') {
         const data = await fetchApiDrikId(id, type);
         setItem(data[0]);
         setIsMeals(false);
+        setRecomendacao(await fetchAllMeals());
       }
     };
     recipeDetaisl();
@@ -36,6 +40,7 @@ function RecipeDetails() {
 
     setIngredients(listIngredients);
   }, [item]);
+  console.log(recomendacao);
   return (
 
     <div>
