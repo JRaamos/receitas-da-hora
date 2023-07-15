@@ -5,6 +5,8 @@ import { fetchAllDrinks, fetchAllMeals,
   fetchApiDrikId, fetchApiMealsId } from '../helpers/fetchApi';
 import './RecipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import MealsDetails from './MealsDetails';
 import DrinksDetails from './DrinksDetails';
 
@@ -20,7 +22,21 @@ function RecipeDetails() {
   const history = useHistory();
   const { pathname } = location;
   const copy = clipboardCopy;
-
+  const favoriteIcon = () => {
+    const id = pathname.split('/')[2];
+    const favoritList = JSON.parse(localStorage.getItem('favoriteRecipes'))
+      ? JSON.parse(localStorage.getItem('favoriteRecipes')) : [];
+    const favorites = favoritList.some((e) => e.id === id);
+    setFavorite(favorites);
+  };
+  const handleFavoriteIcon = () => {
+    const id = pathname.split('/')[2];
+    const favoritList = JSON.parse(localStorage.getItem('favoriteRecipes'))
+      ? JSON.parse(localStorage.getItem('favoriteRecipes')) : [];
+    const newStorage = favoritList.filter((e) => e.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+    setFavorite(false);
+  };
   const continueRecipe = () => {
     const id = pathname.split('/')[2];
     const type = pathname.split('/')[1];
@@ -68,6 +84,7 @@ function RecipeDetails() {
     };
     recipeDetaisl();
     continueRecipe();
+    favoriteIcon();
   }, []);
 
   useEffect(() => {
@@ -144,13 +161,18 @@ function RecipeDetails() {
       </button>
       <button
         type="button"
-        data-testid="favorite-btn"
         onClick={ () => {
+          handleFavoriteIcon();
           handleFavorite();
           setFavorite(!favorite);
         } }
       >
-        favoritar
+        <img
+          src={ favorite ? blackHeartIcon : whiteHeartIcon }
+          alt="favorite"
+          data-testid="favorite-btn"
+
+        />
       </button>
       {
         isMeals ? (
