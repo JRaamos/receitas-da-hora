@@ -104,35 +104,33 @@ function RecipeDetails() {
       ? JSON.parse(localStorage.getItem('favoriteRecipes')) : [];
     const type = pathname.split('/')[1];
     if (type === 'meals') {
-      const favoritarMeals = [...favoritList,
-        {
-          id: item.idMeal,
-          type: 'meal',
-          nationality: item.strArea,
-          category: item.strCategory,
-          alcoholicOrNot: '',
-          name: item.strMeal,
-          image: item.strMealThumb,
-        }];
+      const favoritarMeals = {
+        id: item.idMeal,
+        type: 'meal',
+        nationality: item.strArea,
+        category: item.strCategory,
+        alcoholicOrNot: '',
+        name: item.strMeal,
+        image: item.strMealThumb,
+      };
       localStorage.setItem(
         'favoriteRecipes',
-        JSON.stringify(favoritarMeals),
+        JSON.stringify([...favoritList, favoritarMeals]),
       );
     }
     if (type === 'drinks') {
-      const favoritarDrinks = [...favoritList,
-        {
-          id: item.idDrink,
-          type: 'drink',
-          category: item.strCategory,
-          alcoholicOrNot: item.strAlcoholic,
-          name: item.strDrink,
-          nationality: '',
-          image: item.strDrinkThumb,
-        }];
+      const favoritarDrinks = {
+        id: item.idDrink,
+        type: 'drink',
+        category: item.strCategory,
+        alcoholicOrNot: item.strAlcoholic,
+        name: item.strDrink,
+        nationality: '',
+        image: item.strDrinkThumb,
+      };
       localStorage.setItem(
         'favoriteRecipes',
-        JSON.stringify(favoritarDrinks),
+        JSON.stringify([...favoritList, favoritarDrinks]),
       );
     }
   };
