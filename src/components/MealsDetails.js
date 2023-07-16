@@ -5,7 +5,6 @@ function MealsDetails({ item, ingredients, recomendacao }) {
   return (
     <div>
       <div>
-        <h1 data-testid="recipe-title">{item && item.strMeal}</h1>
         <img
           src={ item && item.strMealThumb }
           alt={ item && item.strMeal }
@@ -32,6 +31,7 @@ function MealsDetails({ item, ingredients, recomendacao }) {
           title="YouTube video player"
           data-testid="video"
         />
+
         <section className="recomendation">
           {
             recomendacao.map((recomend, index) => (

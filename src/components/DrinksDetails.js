@@ -5,7 +5,6 @@ function DrinksDetails({ item, ingredients, recomendacao }) {
   return (
     <div>
       <div>
-        <h1 data-testid="recipe-title">{item && item.strDrink}</h1>
         <img
           src={ item && item.strDrinkThumb }
           alt={ item && item.strDrink }

@@ -70,7 +70,7 @@ function RecipeDetails() {
         const response = await fetchAllDrinks();
         setRecomendacao(response.slice(0, number));
       } else if (type === 'drinks') {
-        const data = await fetchApiDrikId(id, type);
+        const data = await fetchApiDrikId(id);
         setItem(data[0]);
         setIsMeals(false);
         const response = await fetchAllMeals();
@@ -89,7 +89,6 @@ function RecipeDetails() {
     const listIngredients = ingredientsKeys
       .filter((e) => item[e] !== null)
       .filter((ele) => item[ele].length !== 0);
-
     setIngredients(listIngredients);
   }, [item]);
 
@@ -138,6 +137,12 @@ function RecipeDetails() {
   return (
     <div>
       {
+        pathname.split('/')[1] === 'meals' ? (
+          <h1 data-testid="recipe-title">{item && item.strMeal}</h1>
+        ) : (<h1 data-testid="recipe-title">{item && item.strDrink}</h1>
+        )
+      }
+      {
         copyLink && <p>Link copied!</p>
       }
       <button
@@ -146,14 +151,14 @@ function RecipeDetails() {
         data-testid="start-recipe-btn"
         onClick={ handleRedirect }
       >
-        {inProgress ? 'Continue Recipe' : 'Star Recipe'}
+        {inProgress ? 'Continue Recipe' : 'Start Recipe'}
       </button>
       <button
         type="button"
-        data-testid="share-btn"
         onClick={ handleShare }
       >
         <img
+          data-testid="share-btn"
           src={ shareIcon }
           alt="share"
         />
@@ -168,7 +173,6 @@ function RecipeDetails() {
           src={ favorite ? blackHeartIcon : whiteHeartIcon }
           alt="favorite"
           data-testid="favorite-btn"
-
         />
       </button>
       {
