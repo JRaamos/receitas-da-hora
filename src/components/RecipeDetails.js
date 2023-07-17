@@ -148,7 +148,10 @@ function RecipeDetails() {
         type="button"
         className="start-recipe-btn"
         data-testid="start-recipe-btn"
-        onClick={ handleRedirect }
+        onClick={ () => {
+          continueRecipe();
+          handleRedirect();
+        } }
       >
         {inProgress ? 'Continue Recipe' : 'Start Recipe'}
       </button>

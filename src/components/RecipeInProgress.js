@@ -18,12 +18,10 @@ function RecipeInProgress() {
   const [ingredients, setIngredients] = useState([]);
   const [message, setMessage] = useState('');
   const [favorite, setFavorite] = useState(isFavorite(recipe.id));
-  console.log(favorite);
-  console.log(message);
 
   const shareButton = () => {
     const { id, type } = recipe;
-    console.log(id, type);
+    console.log(message);
     clipBoardCopy(`http://localhost:3000/${type}/${id}`);
     setMessage('Link copied!');
   };
@@ -62,8 +60,9 @@ function RecipeInProgress() {
   }, [pathname]);
 
   useEffect(() => {
+    const type = pathname.split('/')[1];
     const { id } = recipe;
-    getLocalStorage.setItem('inProgressRecipes', { [id]: ingredients });
+    getLocalStorage.setItem('inProgressRecipes', { [type]: { [id]: ingredients } });
   }, [ingredients, recipe]);
 
   const handleChangeCheckbox = ({ target }, index) => {
