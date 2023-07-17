@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import clipBoardCopy from 'clipboard-copy';
 import { fetchAPIId } from '../helpers/fetchApiId';
-import './recipeInProgress.css';
+import './recipeInProgres.css';
 import { favoriteRecipe, getLocalStorage, isFavorite } from '../utils/localStorage';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';

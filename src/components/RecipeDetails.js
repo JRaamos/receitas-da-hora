@@ -149,7 +149,6 @@ function RecipeDetails() {
         className="start-recipe-btn"
         data-testid="start-recipe-btn"
         onClick={ () => {
-          continueRecipe();
           handleRedirect();
         } }
       >
