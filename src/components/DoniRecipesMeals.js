@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clipboardCopy from 'clipboard-copy';
+import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 
 function DoniRecipesMeals({ recipe, index }) {
@@ -17,11 +18,14 @@ function DoniRecipesMeals({ recipe, index }) {
         {
           copyLink && <p>Link copied!</p>
         }
-        <img
-          data-testid={ `${index}-horizontal-image` }
-          src={ recipe.image }
-          alt={ recipe.name }
-        />
+        <Link to={ `/meals/${recipe.id}` }>
+          <img
+            data-testid={ `${index}-horizontal-image` }
+            src={ recipe.image }
+            alt={ recipe.name }
+            width={ 250 }
+          />
+        </Link>
         <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
         <p data-testid={ `${index}-horizontal-top-text` }>
           { `${recipe.nationality} - ${recipe.category}` }
