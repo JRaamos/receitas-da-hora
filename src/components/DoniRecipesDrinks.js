@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 
 function DoniRecipesDrinks({ recipe, index }) {
+  const [copyLink, setCopyLink] = useState(false);
+  const copy = clipboardCopy;
+
+  const handleShare = (id) => {
+    copy(`http://localhost:3000/drink/${id}`);
+    setCopyLink(true);
+  };
   return (
     <div>
       <div key={ index }>
+        {
+          copyLink && <p>Link copied!</p>
+        }
         <img
           data-testid={ `${index}-horizontal-image` }
           src={ recipe.image }
@@ -16,7 +27,7 @@ function DoniRecipesDrinks({ recipe, index }) {
         <p data-testid={ `${index}-horizontal-top-text` }>
           {`${recipe.alcoholicOrNot}`}
         </p>
-        <button type="button">
+        <button type="button" onClick={ () => handleShare(recipe.id) }>
           <img
             data-testid={ `${index}-horizontal-share-btn` }
             src={ shareIcon }

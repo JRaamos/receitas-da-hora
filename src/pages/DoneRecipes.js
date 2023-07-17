@@ -5,10 +5,12 @@ import DoniRecipesDrinks from '../components/DoniRecipesDrinks';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
+
   useEffect(() => {
     const doneRecipe = JSON.parse(localStorage.getItem('doneRecipes'));
     setDoneRecipes(doneRecipe);
   }, []);
+
   return (
     <div>
       <header>
@@ -21,8 +23,20 @@ function DoneRecipes() {
         {
           doneRecipes && doneRecipes.map((recipe, index) => (
             recipe.type === 'drink'
-              ? <DoniRecipesDrinks key={ index } recipe={ recipe } index={ index } />
-              : <DoniRecipesMeals key={ index } recipe={ recipe } index={ index } />
+              ? (
+                <DoniRecipesDrinks
+                  key={ index }
+                  recipe={ recipe }
+                  index={ index }
+                />
+              )
+              : (
+                <DoniRecipesMeals
+                  key={ index }
+                  recipe={ recipe }
+                  index={ index }
+                />
+              )
           ))
         }
       </main>
