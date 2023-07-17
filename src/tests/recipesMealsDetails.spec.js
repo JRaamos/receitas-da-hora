@@ -42,6 +42,7 @@ describe('Testa o endpoint de detalhes de uma receita de drinks', () => {
     act(() => {
       userEvent.click(startRecipe);
     });
+    localStorage.setItem('inProgressRecipes', JSON.stringify({ meals: { 52977: [] } }));
 
     expect(history.location.pathname).toBe('/meals/52977/in-progress');
 
@@ -51,7 +52,7 @@ describe('Testa o endpoint de detalhes de uma receita de drinks', () => {
 
     const continueRecipe = screen.getByTestId('start-recipe-btn');
     expect(continueRecipe).toBeInTheDocument();
-    // expect(continueRecipe.innerHTML).toBe('Continue Recipe');
+    expect(continueRecipe.innerHTML).toBe('Continue Recipe');
   });
   it('testa se ao clicar no botao de favoritar a receita ela é adicionada ao local storage', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
