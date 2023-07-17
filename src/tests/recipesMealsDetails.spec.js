@@ -4,11 +4,9 @@ import userEvent from '@testing-library/user-event';
 import { renderWithRouterAndRedux } from '../helpers/renderWith';
 import App from '../App';
 
+const direction = '/meals/52977';
 describe('Testa o endpoint de detalhes de uma receita de drinks', () => {
   it('Testa se é rederizado o componente ', async () => {
-    navigator.clipboard = {
-      writeText: jest.fn(),
-    };
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
       history.push('/meals');
@@ -19,7 +17,7 @@ describe('Testa o endpoint de detalhes de uma receita de drinks', () => {
     act(() => {
       userEvent.click(cardCorba);
     });
-    expect(history.location.pathname).toBe('/meals/52977');
+    expect(history.location.pathname).toBe(direction);
 
     const title = await screen.findByTestId('recipe-title');
     // const img = screen.getByTestId('recipe-photo');
@@ -36,16 +34,21 @@ describe('Testa o endpoint de detalhes de uma receita de drinks', () => {
     expect(video).toBeInTheDocument();
     expect(recomendation).toBeInTheDocument();
     expect(recomendationTitle).toBeInTheDocument();
-    const share = screen.getByTestId('share-btn');
-    expect(share).toBeInTheDocument();
-    expect(share).toHaveAttribute('src', 'shareIcon.svg');
 
+    const startRecipe = screen.getByTestId('start-recipe-btn');
+
+    expect(startRecipe).toBeInTheDocument();
+    expect(startRecipe).toHaveTextContent('Start Recipe');
+
+    userEvent.click(startRecipe);
+
+    expect(history.location.pathname).toBe('/meals/52977/in-progress');
+  });
+  it('testa se ao clicar no botao de favoritar a receita ela é adicionada ao local storage', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      userEvent.click(share);
+      history.push(direction);
     });
-
-    const Link = screen.getByText(/link copied!/i);
-    expect(Link).toBeInTheDocument();
 
     const favorite = screen.getByTestId('favorite-btn');
     expect(favorite).toBeInTheDocument();
@@ -58,14 +61,23 @@ describe('Testa o endpoint de detalhes de uma receita de drinks', () => {
     userEvent.click(favorite);
 
     expect(favorite).toHaveAttribute('src', 'whiteHeartIcon.svg');
+  });
+  it('testa se ao clicar no botao de compartilhar o link da receita é copiado para o clipboard', async () => {
+    navigator.clipboard = {
+      writeText: jest.fn(),
+    };
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+      history.push(direction);
+    });
 
-    const startRecipe = screen.getByTestId('start-recipe-btn');
+    const share = screen.getByTestId('share-btn');
+    expect(share).toBeInTheDocument();
 
-    expect(startRecipe).toBeInTheDocument();
-    expect(startRecipe).toHaveTextContent('Start Recipe');
-
-    userEvent.click(startRecipe);
-
-    expect(history.location.pathname).toBe('/meals/52977/in-progress');
+    act(() => {
+      userEvent.click(share);
+    });
+    const Link = screen.getByText(/link copied!/i);
+    expect(Link).toBeInTheDocument();
   });
 });

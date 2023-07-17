@@ -28,7 +28,6 @@ function RecipeDetails() {
     const favoritList = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setFavorite(favoritList.some((e) => e.id === id));
   };
-
   const continueRecipe = () => {
     const id = pathname.split('/')[2];
     const type = pathname.split('/')[1];
