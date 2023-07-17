@@ -21,7 +21,7 @@ function FavoritesMeals({ index, recipe }) {
           { `${recipe.nationality} - ${recipe.category}` }
         </p>
         <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-        <button type="button" onClick={ () => handleShare(recipe.id) }>
+        <button type="button">
           <img
             data-testid={ `${index}-horizontal-share-btn` }
             src={ shareIcon }
@@ -29,10 +29,13 @@ function FavoritesMeals({ index, recipe }) {
           />
         </button>
         <button
-          data-testid={ `${index}-horizontal-favorite-btn` }
           type="button"
         >
-          <img src={ blackHeartIcon } alt={ recipe.name } />
+          <img
+            data-testid={ `${index}-horizontal-favorite-btn` }
+            src={ blackHeartIcon }
+            alt={ recipe.name }
+          />
         </button>
 
       </div>

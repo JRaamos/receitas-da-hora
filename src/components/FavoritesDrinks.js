@@ -30,10 +30,13 @@ function FavoritesDrinks({ index, recipe }) {
             />
           </button>
           <button
-            data-testid={ `${index}-horizontal-favorite-btn` }
             type="button"
           >
-            <img src={ blackHeartIcon } alt={ recipe.name } />
+            <img
+              data-testid={ `${index}-horizontal-favorite-btn` }
+              src={ blackHeartIcon }
+              alt={ recipe.name }
+            />
           </button>
 
         </div>
