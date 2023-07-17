@@ -23,8 +23,8 @@ describe('Testa o endpoint de detalhes de uma receita de drinks', () => {
     const img = await screen.findByTestId('recipe-photo');
     const instructions = await screen.findByTestId('instructions');
     const category = await screen.findAllByTestId('recipe-category');
-    const recomendationTitle = await screen.findByTestId('0-recommendation-title');
     const recomendation = await screen.findByTestId('1-recommendation-card');
+    const recomendationTitle = await screen.findByTestId('0-recommendation-title');
 
     expect(title).toBeInTheDocument();
     expect(img).toBeInTheDocument();
