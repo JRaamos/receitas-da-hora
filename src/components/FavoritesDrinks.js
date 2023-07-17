@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
 function FavoritesDrinks({ index, recipe }) {
+  const [copyLink, setCopyLink] = useState(false);
+  const copy = clipboardCopy;
+  const handleShare = (id) => {
+    copy(`http://localhost:3000/drinks/${id}`);
+    setCopyLink(true);
+  };
   return (
     <div>
       <div>
+        {
+          copyLink && <p>Link copied!</p>
+        }
         <div key={ index }>
 
           <Link to={ `/drinks/${recipe.id}` }>
