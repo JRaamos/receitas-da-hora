@@ -5,7 +5,7 @@ import clipboardCopy from 'clipboard-copy';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
-function FavoritesMeals({ index, recipe }) {
+function FavoritesMeals({ index, recipe, favorits }) {
   const [copyLink, setCopyLink] = useState(false);
   const copy = clipboardCopy;
   const handleShare = (id) => {
@@ -40,6 +40,7 @@ function FavoritesMeals({ index, recipe }) {
         </button>
         <button
           type="button"
+          onClick={ () => { favorits(); } }
         >
           <img
             data-testid={ `${index}-horizontal-favorite-btn` }

@@ -7,6 +7,12 @@ function FavoriteRecipes() {
   const [favoriteRecipes, setfavoritRecipes] = useState([]);
   const favoriteRecipe = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
+  const desfavoritar = (id) => {
+    const newFavoriteRecipes = favoriteRecipes.filter((recipe) => recipe.id !== id);
+    setfavoritRecipes(newFavoriteRecipes);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+  };
+
   useEffect(() => {
     setfavoritRecipes(favoriteRecipe);
   }, []);
@@ -45,6 +51,7 @@ function FavoriteRecipes() {
                   key={ index }
                   recipe={ recipe }
                   index={ index }
+                  favorits={ () => desfavoritar(recipe.id) }
                 />
               )
               : (
@@ -52,6 +59,8 @@ function FavoriteRecipes() {
                   key={ index }
                   recipe={ recipe }
                   index={ index }
+                  favorits={ () => desfavoritar(recipe.id) }
+
                 />
               )
           ))
