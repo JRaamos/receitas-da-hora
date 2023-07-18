@@ -27,6 +27,7 @@ const favoriteRecipes = [
 const topText = '0-horizontal-top-text';
 describe('Testa o a pagina de favorite-recipes', () => {
   localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  localStorage.setItem('user', '{"email":"jonathan@gg.com"}');
   it('Testa o component é renderizado com todos os itens na pagina', () => {
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
