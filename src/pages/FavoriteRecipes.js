@@ -16,6 +16,19 @@ function FavoriteRecipes() {
   useEffect(() => {
     setfavoritRecipes(favoriteRecipe);
   }, []);
+
+  const filterMeals = () => {
+    const recipeMeals = favoriteRecipe.filter((recipe) => recipe.type === 'meal');
+    setfavoritRecipes(recipeMeals);
+  };
+  const filterDrinks = () => {
+    const recipeMeals = favoriteRecipe.filter((recipe) => recipe.type === 'drink');
+    setfavoritRecipes(recipeMeals);
+  };
+
+  const filterAll = () => {
+    setfavoritRecipes(favoriteRecipe);
+  };
   return (
     <div>
       <header>
@@ -25,21 +38,21 @@ function FavoriteRecipes() {
         <button
           data-testid="filter-by-all-btn"
           type="button"
-          // onClick={ filterAll }
+          onClick={ filterAll }
         >
           All
         </button>
         <button
           data-testid="filter-by-meal-btn"
           type="button"
-          // onClick={ filterMeals }
+          onClick={ filterMeals }
         >
           Meals
         </button>
         <button
           data-testid="filter-by-drink-btn"
           type="button"
-          // onClick={ filterDrinks }
+          onClick={ filterDrinks }
         >
           Drinks
         </button>

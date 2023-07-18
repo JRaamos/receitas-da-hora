@@ -65,4 +65,30 @@ describe('Testa o a pagina de favorite-recipes', () => {
 
     expect(history.location.pathname).toBe('/profile');
   });
+
+  it('Testa o botão de filtrar por comidas', () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+      history.push('/favorite-recipes');
+    });
+    const buttonAll = screen.getByTestId('filter-by-all-btn');
+    const buttonMeals = screen.getByTestId('filter-by-meal-btn');
+    const buttonDrinks = screen.getByTestId('filter-by-drink-btn');
+    act(() => {
+      userEvent.click(buttonMeals);
+    });
+
+    act(() => {
+      userEvent.click(buttonDrinks);
+    });
+
+    act(() => {
+      userEvent.click(buttonAll);
+    });
+    const buttonDesfavoritMeals = screen.getByTestId('0-horizontal-favorite-btn');
+
+    act(() => {
+      userEvent.click(buttonDesfavoritMeals);
+    });
+  });
 });
