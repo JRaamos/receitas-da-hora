@@ -4,8 +4,23 @@ import Header from '../components/Header';
 function Profile() {
   return (
     <div>
-      <Header />
-      <Footer />
+      <header>
+        <Header />
+      </header>
+      <main>
+        <p data-testid="profile-email">email</p>
+        <button
+          type="button"
+          data-testid="profile-done-btn"
+        >
+          Done Recipes
+        </button>
+        <button data-testid="profile-favorite-btn" type="button">Favorito Recipes</button>
+        <button data-testid="profile-logout-btn" type="button">Sair</button>
+      </main>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }
