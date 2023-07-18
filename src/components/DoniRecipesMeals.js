@@ -8,6 +8,7 @@ function DoniRecipesMeals({ recipe, index }) {
   const [copyLink, setCopyLink] = useState(false);
   const copy = clipboardCopy;
 
+  // função responsavel por copiar o link da pagina de receita para area de transferencia e setar o resultado booleano no stado copyLink
   const handleShare = (id) => {
     copy(`http://localhost:3000/meals/${id}`);
     setCopyLink(true);

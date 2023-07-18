@@ -15,6 +15,7 @@ function Header() {
     || pathname === '/done-recipes'
     || pathname === '/favorite-recipes';
 
+  // função responsavel por setar o titulo da pagina de acordo com o pathname
   useEffect(() => {
     const titlePage = () => {
       switch (pathname) {

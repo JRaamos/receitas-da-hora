@@ -23,11 +23,14 @@ function RecipeDetails() {
   const { pathname } = location;
   const copy = clipboardCopy;
 
+  // função responsavel por verificar se a receita esta favoritada ou não de acordo com o localStorag e setar o resultado booleano no stado favorite
   const favoriteIcon = () => {
     const id = pathname.split('/')[2];
     const favoritList = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setFavorite(favoritList.some((e) => e.id === id));
   };
+
+  // função responsavel por verificar se a receita esta em progresso ou não de acordo com o localStorag e setar o resultado booleano no stado inProgress
   const continueRecipe = () => {
     const id = pathname.split('/')[2];
     const type = pathname.split('/')[1];
@@ -39,6 +42,8 @@ function RecipeDetails() {
       setInProgress(true);
     }
   };
+
+  // função responsavel por motar a url da pagina de receita em progresso e redirecionar para a pagina de receita em progresso
   const handleRedirect = () => {
     const type = pathname.split('/')[1];
     const id = pathname.split('/')[2];
@@ -49,12 +54,14 @@ function RecipeDetails() {
     }
   };
 
+  // função responsavel por copiar o link da pagina de receita para area de transferencia e setar o resultado booleano no stado copyLink
   const handleShare = () => {
     copy(`http://localhost:3000${pathname}`);
     setCopyLink(true);
   };
 
   useEffect(() => {
+    // função responsavel por verificar se o localStorag existe e caso não exista criar um localStorag com um array vazio e responsavel por fazer requisição a aó api de bebidas e comidas e setar o resultado no stado recomendacao e responsavel por fazer requisição a aó api de bebidas e comidas por id
     const recipeDetaisl = async () => {
       if (!localStorage.getItem('favoriteRecipes')) {
         localStorage.setItem('favoriteRecipes', JSON.stringify([]));
@@ -81,6 +88,7 @@ function RecipeDetails() {
     favoriteIcon();
   }, []);
 
+  // função responsavel por pegar todas os ingredietes da receita separar suas chaves e filtrar as chaves que contem a palavra strIngredient e setar o resultado no stado ingredients e responsavel po retirar os ingredientes que não tem valor e setar o resultado no stado ingredients
   useEffect(() => {
     const ingredientsKeys = item.length !== 0 ? Object.keys(item)
       .filter((key) => key.includes('strIngredient'))
@@ -91,6 +99,7 @@ function RecipeDetails() {
     setIngredients(listIngredients);
   }, [item]);
 
+  // função responsavel por setar no localStorage o array de objetos com todas as receitas que são favoritas e tbm retirar do localStorage a receita que foi desfavoritada
   const handleFavorite = () => {
     const favoritList = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const type = pathname.split('/')[1];

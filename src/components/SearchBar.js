@@ -20,6 +20,7 @@ function SearchBar() {
   const { pathname } = location;
   const validateFilter = filter === 'primeira-letra';
 
+  // função reponsavel por redirecionar para a pagina de detalhes de comidas ou bebidas e armazenar o valor da api no redux
   const handleDetailsMealsDrinks = (response) => {
     if (!response) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
@@ -33,6 +34,7 @@ function SearchBar() {
     dispatch(fetchApi(response));
   };
 
+  // função responsavel por fazer a requisicao da api de comidas
   const handleFetchMeals = async () => {
     if (validateFilter && search.length > 1) {
       global.alert('Your search must have only 1 (one) character');
@@ -54,6 +56,7 @@ function SearchBar() {
     }
   };
 
+  // função responsavel por fazer a requisicao da api de bebidas
   const handleFetchDrinks = async () => {
     if (filter === 'primeira-letra' && search.length > 1) {
       global.alert('Your search must have only 1 (one) character');

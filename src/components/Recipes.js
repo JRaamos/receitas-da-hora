@@ -19,6 +19,7 @@ function Recipes() {
   const cloneApi = response.slice(0, number);
   const cloneData = data.slice(0, numberCategori);
 
+  // função responsavel por fazer a requisicao da api de comidas e bebidas e armazenar o valor da api no redux
   const fetchMealsDrinks = async () => {
     if (pathname === '/meals') {
       const results = await fetchAllMeals();
@@ -35,6 +36,7 @@ function Recipes() {
     fetchMealsDrinks();
   }, []);
 
+  // função responsavel por fazer a requisicao da api de comidas e bebidas por categoria
   const handleFetchFilter = async (categoryName) => {
     if (pathname === '/meals') {
       const results = await fetchFilterCategoryMeals(categoryName);

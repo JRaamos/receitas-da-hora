@@ -11,16 +11,19 @@ function DoneRecipes() {
     setDoneRecipes(doneRecipe);
   }, []);
 
+  // função para filtrar as receitas favoritas por tipo de receita (comida)
   const filterMeals = () => {
     const recipeMeals = doneRecipe.filter((recipe) => recipe.type === 'meal');
     setDoneRecipes(recipeMeals);
   };
 
+  // função para filtrar as receitas favoritas por tipo de receita (bebida)
   const filterDrinks = () => {
     const recipeMeals = doneRecipe.filter((recipe) => recipe.type === 'drink');
     setDoneRecipes(recipeMeals);
   };
 
+  // função para filtrar as receitas favoritas por tipo de receita (todas)
   const filterAll = () => {
     setDoneRecipes(doneRecipe);
   };

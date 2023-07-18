@@ -7,6 +7,7 @@ function FavoriteRecipes() {
   const [favoriteRecipes, setfavoritRecipes] = useState([]);
   const favoriteRecipe = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
+  // função para desfavoritar, ela recebe o id da receita e filtra as receitas favoritas pelo id e retorna um novo array sem a receita desfavoritada
   const desfavoritar = (id) => {
     const newFavoriteRecipes = favoriteRecipes.filter((recipe) => recipe.id !== id);
     setfavoritRecipes(newFavoriteRecipes);
@@ -17,15 +18,19 @@ function FavoriteRecipes() {
     setfavoritRecipes(favoriteRecipe);
   }, []);
 
+  // função para filtrar as receitas favoritas por tipo de receita (comida)
   const filterMeals = () => {
     const recipeMeals = favoriteRecipe.filter((recipe) => recipe.type === 'meal');
     setfavoritRecipes(recipeMeals);
   };
+
+  // função para filtrar as receitas favoritas por tipo de receita (bebida)
   const filterDrinks = () => {
     const recipeMeals = favoriteRecipe.filter((recipe) => recipe.type === 'drink');
     setfavoritRecipes(recipeMeals);
   };
 
+  // função para filtrar as receitas favoritas por tipo de receita (todas)
   const filterAll = () => {
     setfavoritRecipes(favoriteRecipe);
   };

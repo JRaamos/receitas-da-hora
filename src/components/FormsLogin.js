@@ -8,6 +8,7 @@ function FormsLogin() {
   const history = useHistory();
 
   useEffect(() => {
+    // função responsavel por validar o email e a senha
     const handleValidation = () => {
       const MIN_PASSWORD_LENGTH = 6;
       const emailValidation = /.+@[A-z]+[.]com/;
@@ -20,6 +21,7 @@ function FormsLogin() {
     handleValidation();
   }, [email, password]);
 
+  // função responsavel por salvar o email no localStorage e redirecionar para a pagina de comidas
   const handleSubmit = (e) => {
     e.preventDefault();
     localStorage.setItem('user', JSON.stringify({ email }));
