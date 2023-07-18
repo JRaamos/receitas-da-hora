@@ -11,7 +11,7 @@ function Profile() {
         <Header />
       </header>
       <main>
-        <p data-testid="profile-email">{email.email}</p>
+        <p data-testid="profile-email">{ email && email.email }</p>
         <button
           type="button"
           data-testid="profile-done-btn"
