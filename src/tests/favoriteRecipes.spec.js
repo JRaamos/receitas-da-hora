@@ -4,6 +4,7 @@ import { act } from 'react-dom/test-utils';
 import { renderWithRouterAndRedux } from '../helpers/renderWith';
 import App from '../App';
 
+const favorite = '/favorite-recipes';
 const favoriteRecipes = [
   {
     id: '52771',
@@ -30,8 +31,11 @@ describe('Testa o a pagina de favorite-recipes', () => {
   localStorage.setItem('user', '{"email":"jonathan@gg.com"}');
   it('Testa o component é renderizado com todos os itens na pagina', () => {
     const { history } = renderWithRouterAndRedux(<App />);
+    navigator.clipboard = {
+      writeText: jest.fn(),
+    };
     act(() => {
-      history.push('/favorite-recipes');
+      history.push(favorite);
     });
     const title = screen.getByTestId('page-title');
     const buttonProfile = screen.getByTestId('profile-top-btn');
@@ -50,10 +54,16 @@ describe('Testa o a pagina de favorite-recipes', () => {
     expect(screen.getByTestId('0-horizontal-name')).toBeInTheDocument();
     expect(screen.getByTestId('0-horizontal-done-date')).toBeInTheDocument();
     expect(screen.getByTestId('0-horizontal-share-btn')).toBeInTheDocument();
+    act(() => {
+      userEvent.click(screen.getByTestId('0-horizontal-share-btn'));
+    });
     expect(screen.getByTestId('1-horizontal-image')).toBeInTheDocument();
     expect(screen.getByTestId('1-horizontal-top-text')).toBeInTheDocument();
     expect(screen.getByTestId('1-horizontal-name')).toBeInTheDocument();
     expect(screen.getByTestId('1-horizontal-share-btn')).toBeInTheDocument();
+    act(() => {
+      userEvent.click(screen.getByTestId('1-horizontal-share-btn'));
+    });
     expect(screen.getByTestId('1-horizontal-done-date')).toBeInTheDocument();
 
     expect(title).toBeInTheDocument();
@@ -70,7 +80,7 @@ describe('Testa o a pagina de favorite-recipes', () => {
   it('Testa o botão de filtrar por comidas', () => {
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      history.push('/favorite-recipes');
+      history.push(favorite);
     });
     const buttonAll = screen.getByTestId('filter-by-all-btn');
     const buttonMeals = screen.getByTestId('filter-by-meal-btn');
