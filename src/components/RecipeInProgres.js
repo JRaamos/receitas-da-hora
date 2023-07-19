@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import './recipeInProgres.css';
 import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
@@ -16,6 +16,7 @@ function RecipeInProgress() {
   const [copyLink, setCopyLink] = useState(false);
   const location = useLocation();
   const { pathname } = location;
+  const history = useHistory();
   const copy = clipboardCopy;
   const favoriteIcon = () => {
     const id = pathname.split('/')[2];
@@ -136,6 +137,46 @@ function RecipeInProgress() {
       setFavorite(false);
     }
   };
+  const handleFinish = () => {
+    const type = pathname.split('/')[1];
+    const progress = localStorage.getItem('doneRecipes');
+    const progressData = progress ? JSON.parse(progress) : [];
+    if (type === 'meals') {
+      const doneMeals = {
+        id: item.idMeal,
+        type: 'meal',
+        nationality: item.strArea,
+        category: item.strCategory,
+        alcoholicOrNot: '',
+        name: item.strMeal,
+        image: item.strMealThumb,
+        doneDate: new Date(),
+        tags: item.strTags ? item.strTags.split(',') : [],
+      };
+      localStorage.setItem(
+        'doneRecipes',
+        JSON.stringify([...progressData, doneMeals]),
+      );
+    }
+    if (type === 'drinks') {
+      const doneDrinks = {
+        id: item.idDrink,
+        type: 'drink',
+        nationality: '',
+        category: item.strCategory,
+        alcoholicOrNot: item.strAlcoholic,
+        name: item.strDrink,
+        image: item.strDrinkThumb,
+        doneDate: new Date(),
+        tags: item.strTags ? item.strTags.split(',') : [],
+      };
+      localStorage.setItem(
+        'doneRecipes',
+        JSON.stringify([...progressData, doneDrinks]),
+      );
+    }
+    history.push('/done-recipes');
+  };
 
   return (
     <div>
@@ -190,6 +231,7 @@ function RecipeInProgress() {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ ingredients.length !== allIngredients.length }
+        onClick={ handleFinish }
       >
         Finish Recipe
       </button>
