@@ -186,7 +186,11 @@ function RecipeInProgress() {
         }
       </ul>
       <p data-testid="instructions">instructions</p>
-      <button type="button" data-testid="finish-recipe-btn">
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ ingredients.length !== allIngredients.length }
+      >
         Finish Recipe
       </button>
     </div>
