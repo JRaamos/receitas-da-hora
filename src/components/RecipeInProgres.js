@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
-import './recipeInProgres.css';
+import './RecipeInProgres.css';
 import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-
 import { fetchApiDrikId, fetchApiMealsId } from '../helpers/fetchApi';
 
 function RecipeInProgress() {
@@ -18,12 +17,14 @@ function RecipeInProgress() {
   const { pathname } = location;
   const history = useHistory();
   const copy = clipboardCopy;
+
   const favoriteIcon = () => {
     const id = pathname.split('/')[2];
     const favoritList = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setFavorite(favoritList.some((e) => e.id === id));
   };
 
+  // função responsavel por fazer a requisicao da api de comidas e bebidas por id
   useEffect(() => {
     if (!localStorage.getItem('favoriteRecipes')) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
@@ -43,6 +44,7 @@ function RecipeInProgress() {
     favoriteIcon();
   }, []);
 
+  // função responsavel por pegar as chaves dos ingredientes e filtrar os ingredientes
   useEffect(() => {
     const ingredientsKeys = item.length !== 0 ? Object.keys(item)
       .filter((key) => key.includes('strIngredient'))
@@ -54,6 +56,7 @@ function RecipeInProgress() {
     setIngredients(ingredientFilter);
   }, [item]);
 
+  // função responsavel por salvar os ingredientes no localStorage
   const handleCheckbox = (index) => {
     const type = pathname.split('/')[1];
     const id = pathname.split('/')[2];
@@ -76,6 +79,7 @@ function RecipeInProgress() {
 
     localStorage.setItem('inProgressRecipes', JSON.stringify(progressData));
   };
+  // função responsavel por pegar os ingredientes salvos no localStorage
   useEffect(() => {
     const type = pathname.split('/')[1];
     const id = pathname.split('/')[2];
@@ -89,12 +93,15 @@ function RecipeInProgress() {
     }
   }, [pathname]);
 
+  // função responsavel por copiar o link da pagina
   const handleShare = () => {
     const type = pathname.split('/')[1];
     const id = pathname.split('/')[2];
     copy(`http://localhost:3000/${type}/${id}`);
     setCopyLink(true);
   };
+
+  // função responsavel por salvar a receita nos favoritos
   const handleFavorite = () => {
     const favoritList = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const type = pathname.split('/')[1];
@@ -137,6 +144,7 @@ function RecipeInProgress() {
       setFavorite(false);
     }
   };
+  // função responsavel por salvar a receita nas receitas feitas
   const handleFinish = () => {
     const type = pathname.split('/')[1];
     const progress = localStorage.getItem('doneRecipes');

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Login.css';
+import tomato from '../images/tomate.png';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -31,10 +32,21 @@ function Login() {
 
   return (
     <div className="login-contain">
+      <div>
+        <img
+          src="https://i.pinimg.com/736x/ca/d1/7f/cad17f2ce776cf9bf851effd5c16c9d4.jpg"
+          alt="comida"
+          className="login-img"
+        />
+      </div>
+      <div>
+        <img src={ tomato } alt="comida" className="tomate-img" />
+      </div>
       <form className="forms-login">
-        <h1>Login</h1>
+        <h1 className="login-title">Login</h1>
         <label htmlFor="email-input">
           <input
+            className="login-input"
             type="email"
             data-testid="email-input"
             placeholder="Email"
@@ -45,6 +57,7 @@ function Login() {
         </label>
         <label htmlFor="password-input">
           <input
+            className="login-input"
             type="password"
             data-testid="password-input"
             placeholder="Password"
@@ -54,6 +67,7 @@ function Login() {
           />
         </label>
         <button
+          className="login-btn"
           type="submit"
           data-testid="login-submit-btn"
           disabled={ isDisabled }

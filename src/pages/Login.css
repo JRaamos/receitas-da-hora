@@ -1,18 +1,87 @@
 .login-contain {
+  align-items: center;
+  background: #885d5d;
+  background-image: linear-gradient(to bottom, #08004b 48%, #d5e5f0 40%, #5a8ac2);
   border: 0.5px solid #41197f;
   display: flex;
   flex-direction: column;
   height: 800px;
-  justify-content: end;
+  justify-content: flex-end;
   margin: 0 auto;
   width: 360px;
 }
 
-.login-contain .forms-login {
+.forms-login {
   align-items: center;
   display: flex;
   flex-direction: column;
   height: 400px;
-  margin: 0 auto;
   width: 300px;
+}
+
+.login-img {
+  border-radius: 8px;
+  flex-shrink: 0;
+  height: 157.25px;
+  margin-top: 30%;
+  width: 198px;
+}
+
+.tomate-img {
+  flex-shrink: 0;
+  width: 80%;
+}
+
+.login-title {
+  color: #41197f;
+  font-family: Roboto Slab , serif;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 3.3px;
+  line-height: normal;
+  text-align: center;
+  text-transform: uppercase;
+  width: 182px;
+}
+
+.login-input {
+  border: 0.5px solid #41197f;
+  border-radius: 5px;
+  box-shadow: 1px 7px 15px 1px rgb(5, 10, 56);
+  flex-shrink: 0;
+  height: 40px;
+  margin: 7px;
+  width: 276px;
+}
+
+.login-btn {
+  background: #0f015f;
+  border: 0.5px solid #41197f;
+  border-radius: 5px;
+  box-shadow: 1px 7px 15px 1px rgb(5, 10, 56);
+  color: #e0e0e7;
+  flex-shrink: 0;
+  font-family: Roboto Slab , serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  height: 40px;
+  letter-spacing: 0.42px;
+  line-height: normal;
+  margin: 7px;
+  text-align: center;
+  width: 276px;
+
+}
+
+.login-btn:hover {
+  background: #070047;
+  border: solid #5a8ac2  1px;
+  cursor: pointer;
+}
+
+.login-input:hover {
+  border: 2px solid #19237f;
+
 }

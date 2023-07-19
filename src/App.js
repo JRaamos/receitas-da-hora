@@ -1,5 +1,4 @@
-import React from 'react';
-import './App.css';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
@@ -13,6 +12,9 @@ import RecipesMealsDetails from './pages/RecipesMealsDetails';
 import RecipeInProgressPages from './pages/RecipeInProgress';
 
 function App() {
+  useEffect(() => {
+    document.title = 'Receitas da hora!';
+  }, []);
   return (
     <div>
       <Switch>

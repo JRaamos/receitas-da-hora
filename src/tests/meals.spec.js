@@ -2,6 +2,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import Meals from '../pages/Meals';
+
 import { renderWithRouterAndRedux } from '../helpers/renderWith';
 import { mockApiIngredients } from '../helpers/mockApiIngredientes';
 import { mockApiName } from '../helpers/mockApiName';
