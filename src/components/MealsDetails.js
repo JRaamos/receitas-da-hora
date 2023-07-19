@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function MealsDetails({ item, ingredients, recomendacao }) {
+  const validUrl = (givenUrl) => givenUrl.replace('watch', 'embed').replace(/\?v=/g, '/');
   return (
     <div>
       <div>
@@ -25,7 +26,7 @@ function MealsDetails({ item, ingredients, recomendacao }) {
         <iframe
           width="560"
           height="315"
-          src={ item && item.strYoutube }
+          src={ validUrl(item && item.strYoutube) }
           allow="accelerometer; autoplay; clipboard-write;
            encrypted-media; gyroscope; picture-in-picture"
           title="YouTube video player"

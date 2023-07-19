@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import './Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -29,9 +30,9 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form>
+    <div className="login-contain">
+      <form className="forms-login">
+        <h1>Login</h1>
         <label htmlFor="email-input">
           <input
             type="email"

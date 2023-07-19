@@ -20,7 +20,9 @@ describe('Teste de rotas da pagina drink', () => {
     expect(history.location.pathname).toBe('/meals');
 
     const buttonSearch = screen.getByTestId('search-top-btn');
-    userEvent.click(buttonSearch);
+    act(() => {
+      userEvent.click(buttonSearch);
+    });
 
     const input = screen.getByTestId('search-input');
     const buttonSearch2 = screen.getByTestId('exec-search-btn');
@@ -58,6 +60,7 @@ describe('Teste botões de categoria na pagina meals', () => {
     expect(dessert).toBeInTheDocument();
     expect(goat).toBeInTheDocument();
   });
+
   it('Testa se ao clicar no botão de categoria "Beef" é feito a requisição para o endpoint da api de meals com a categoria beef', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
@@ -66,10 +69,14 @@ describe('Teste botões de categoria na pagina meals', () => {
     expect(history.location.pathname).toBe('/meals');
 
     const beef = await screen.findByTestId('Beef-category-filter');
-    userEvent.click(beef);
+    act(() => {
+      userEvent.click(beef);
+    });
 
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef');
 
-    userEvent.click(beef);
+    act(() => {
+      userEvent.click(beef);
+    });
   });
 });
