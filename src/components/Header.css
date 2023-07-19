@@ -1,0 +1,26 @@
+.pages-contain {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.main-contain {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.img {
+  flex-shrink: 0;
+  height: 135px;
+  width: 163px;
+}
+
+.header-contain {
+  align-items: center;
+  border: 1px solid black;
+  display: flex;
+  margin-bottom: 20px;
+  width: 100%;
+}

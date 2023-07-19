@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import './Header.css';
 
 function Header() {
   const [title, setTitle] = useState('');
   const [pesquisa, setPesquisa] = useState(false);
-
+  const state = useSelector(({ gravatar }) => gravatar.gravatar);
   const location = useLocation();
   const history = useHistory();
   const { pathname } = location;
@@ -44,7 +46,7 @@ function Header() {
       <h1 data-testid="page-title">{title}</h1>
       <button type="button" onClick={ () => history.push('/profile') }>
         <img
-          src={ profileIcon }
+          src={ state || profileIcon }
           alt="profile icon"
           data-testid="profile-top-btn"
         />

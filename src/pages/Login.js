@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Login.css';
+import { useDispatch } from 'react-redux';
 import tomato from '../images/tomate.png';
+import { handleGravatar } from '../helpers/featFunctions';
+
+import { handleGravatarEmail } from '../redux/actions';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // função responsavel por validar o email e a senha
@@ -24,8 +29,7 @@ function Login() {
   }, [email, password]);
 
   // função responsavel por salvar o email no localStorage e redirecionar para a pagina de comidas
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/meals');
   };
@@ -68,10 +72,13 @@ function Login() {
         </label>
         <button
           className="login-btn"
-          type="submit"
+          type="button"
           data-testid="login-submit-btn"
           disabled={ isDisabled }
-          onClick={ handleSubmit }
+          onClick={ () => {
+            handleSubmit();
+            dispatch(handleGravatarEmail(handleGravatar(email)));
+          } }
         >
           Entrar
         </button>

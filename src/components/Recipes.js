@@ -48,7 +48,7 @@ function Recipes() {
     }
   };
   return (
-    <div>
+    <div className="main-contain">
       {
         cloneData.map((categoryName, index) => (
           <button
@@ -90,6 +90,8 @@ function Recipes() {
               src={ recipe.strDrinkThumb }
               alt={ recipe.strDrink }
               data-testid={ `${index}-card-img` }
+              width={ 200 }
+              className="img"
             />
           </Link>
         </div>
@@ -106,6 +108,8 @@ function Recipes() {
                 src={ recipe.strMealThumb }
                 alt={ recipe.strMeal }
                 data-testid={ `${index}-card-img` }
+                width={ 200 }
+                className="img"
               />
             </Link>
           </div>

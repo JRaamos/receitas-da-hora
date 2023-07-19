@@ -5,14 +5,14 @@ import Recipes from '../components/Recipes';
 
 function Drinks() {
   return (
-    <div>
-      <header>
+    <div className="pages-contain">
+      <header className="header-contain">
         <Header />
       </header>
       <main>
         <Recipes />
       </main>
-      <footer>
+      <footer className="footer-contain">
         <Footer />
       </footer>
     </div>
