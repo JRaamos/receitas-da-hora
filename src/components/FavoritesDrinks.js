@@ -17,9 +17,9 @@ function FavoritesDrinks({ index, recipe, favorits }) {
   return (
     <div>
       <div>
-        {
-          copyLink && <p>Link copied!</p>
-        }
+        {/*
+        copyLink && <p>Link copied!</p>
+  */}
         <div key={ index }>
 
           <Link to={ `/drinks/${recipe.id}` }>

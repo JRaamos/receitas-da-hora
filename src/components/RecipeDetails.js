@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useHistory, Link } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import { fetchAllDrinks, fetchAllMeals,
   fetchApiDrikId, fetchApiMealsId } from '../helpers/fetchApi';
@@ -9,6 +9,8 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import MealsDetails from './MealsDetails';
 import DrinksDetails from './DrinksDetails';
+import drink from '../images/mealIcon.svg';
+import prato from '../images/drinkIcon.svg';
 
 function RecipeDetails() {
   const location = useLocation();
@@ -34,12 +36,13 @@ function RecipeDetails() {
   const continueRecipe = () => {
     const id = pathname.split('/')[2];
     const type = pathname.split('/')[1];
-    const idLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (idLocalStorage && type === 'meals' && idLocalStorage.meals[id]) {
-      setInProgress(true);
-    }
-    if (idLocalStorage && type === 'drinks' && idLocalStorage.drinks[id]) {
-      setInProgress(true);
+    const idLocalStorage = localStorage.getItem('inProgressRecipes');
+    if (idLocalStorage) {
+      const idLocalStorageParse = JSON.parse(idLocalStorage);
+      if (idLocalStorageParse && idLocalStorageParse[type]) {
+        const check = Object.keys(idLocalStorageParse[type]).some((e) => e === id);
+        if (check) { setInProgress(true); }
+      }
     }
   };
 
@@ -56,8 +59,12 @@ function RecipeDetails() {
 
   // função responsavel por copiar o link da pagina de receita para area de transferencia e setar o resultado booleano no stado copyLink
   const handleShare = () => {
+    const numberT = 3000;
     copy(`http://localhost:3000${pathname}`);
     setCopyLink(true);
+    setTimeout(() => {
+      setCopyLink(false);
+    }, numberT);
   };
 
   useEffect(() => {
@@ -144,14 +151,80 @@ function RecipeDetails() {
   };
   return (
     <div>
+      <div className="header-details">
+        {
+          pathname.split('/')[1] === 'meals' ? (
+            <div
+              className="header-icon"
+            >
+              <Link to="/meals">
+                <img
+                  src={ drink }
+                  alt="prato"
+                  className="img-header"
+                />
+              </Link>
+            </div>
+          ) : (
+            <div className="header-icon">
+              <Link to="/drinks">
+                <img
+                  src={ prato }
+                  alt="drink"
+                  className="img-header"
+                />
+              </Link>
+            </div>
+          )
+        }
+        {
+          copyLink && <p>Link copied!</p>
+        }
+        <div className="btn">
+          <button
+            type="button"
+            onClick={ handleShare }
+            className="btn-details"
+          >
+            <img
+              data-testid="share-btn"
+              src={ shareIcon }
+              alt="share"
+            />
+          </button>
+          <button
+            className="btn-details"
+            type="button"
+            onClick={ () => {
+              handleFavorite();
+            } }
+          >
+            <img
+              src={ favorite ? blackHeartIcon : whiteHeartIcon }
+              alt="favorite"
+              data-testid="favorite-btn"
+            />
+          </button>
+        </div>
+
+      </div>
       {
-        pathname.split('/')[1] === 'meals' ? (
-          <h1 data-testid="recipe-title">{item && item.strMeal}</h1>
-        ) : (<h1 data-testid="recipe-title">{item && item.strDrink}</h1>
+        isMeals ? (
+          <MealsDetails
+            item={ item }
+            title="Meals"
+            ingredients={ ingredients }
+            recomendacao={ recomendacao }
+          />
+
+        ) : (
+          <DrinksDetails
+            item={ item }
+            title="Drinks"
+            ingredients={ ingredients }
+            recomendacao={ recomendacao }
+          />
         )
-      }
-      {
-        copyLink && <p>Link copied!</p>
       }
       <button
         type="button"
@@ -163,44 +236,7 @@ function RecipeDetails() {
       >
         {inProgress ? 'Continue Recipe' : 'Start Recipe'}
       </button>
-      <button
-        type="button"
-        onClick={ handleShare }
-      >
-        <img
-          data-testid="share-btn"
-          src={ shareIcon }
-          alt="share"
-        />
-      </button>
-      <button
-        type="button"
-        onClick={ () => {
-          handleFavorite();
-        } }
-      >
-        <img
-          src={ favorite ? blackHeartIcon : whiteHeartIcon }
-          alt="favorite"
-          data-testid="favorite-btn"
-        />
-      </button>
-      {
-        isMeals ? (
-          <MealsDetails
-            item={ item }
-            ingredients={ ingredients }
-            recomendacao={ recomendacao }
-          />
 
-        ) : (
-          <DrinksDetails
-            item={ item }
-            ingredients={ ingredients }
-            recomendacao={ recomendacao }
-          />
-        )
-      }
     </div>
   );
 }

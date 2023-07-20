@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import './RecipeInProgres.css';
 import clipboardCopy from 'clipboard-copy';
+import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { fetchApiDrikId, fetchApiMealsId } from '../helpers/fetchApi';
+import drink from '../images/mealIcon.svg';
+import prato from '../images/drinkIcon.svg';
 
 function RecipeInProgress() {
   const [item, setItem] = useState([]);
@@ -68,15 +71,12 @@ function RecipeInProgress() {
     }
 
     setallIngredients(newIngredientes);
-
     const progress = localStorage.getItem('inProgressRecipes');
     const progressData = progress ? JSON.parse(progress) : {};
-
     progressData[type] = {
       ...(progressData[type] || {}),
       [id]: newIngredientes,
     };
-
     localStorage.setItem('inProgressRecipes', JSON.stringify(progressData));
   };
   // função responsavel por pegar os ingredientes salvos no localStorage
@@ -188,55 +188,121 @@ function RecipeInProgress() {
 
   return (
     <div>
-      <h1 data-testid="recipe-title">titulo</h1>
-      <img data-testid="recipe-photo" src="" alt="" />
-      <h3 data-testid="recipe-category">category</h3>
-      {
-        copyLink && <p>Link copied!</p>
-      }
-      <button
-        type="button"
-        onClick={ handleFavorite }
-      >
-        <img
-          src={ favorite ? blackHeartIcon : whiteHeartIcon }
-          alt="favorite"
-          data-testid="favorite-btn"
-        />
-      </button>
-      <button
-        type="button"
-        onClick={ handleShare }
-      >
-        <img
-          data-testid="share-btn"
-          src={ shareIcon }
-          alt="share"
-        />
-      </button>
-      <ul className="ingredient-progress">
+      <div className="header-details">
         {
-          ingredients.map((ingredient, index) => (
-            <li key={ index }>
-              <label
-                className={ allIngredients.includes(index) ? 'checked' : '' }
-                data-testid={ `${index}-ingredient-step` }
-              >
-                <input
-                  type="checkbox"
-                  id={ index }
-                  onChange={ () => handleCheckbox(index) }
-                  checked={ allIngredients.includes(index) }
+          pathname.split('/')[1] === 'meals' ? (
+            <div
+              className="header-icon"
+            >
+              <Link to="/meals">
+                <img
+                  src={ drink }
+                  alt="prato"
+                  className="img-header"
                 />
-                { ingredient }
-              </label>
-            </li>
-          ))
+              </Link>
+            </div>
+          ) : (
+            <div className="header-icon">
+              <Link to="/drinks">
+                <img
+                  src={ prato }
+                  alt="drink"
+                  className="img-header"
+                />
+              </Link>
+            </div>
+          )
         }
-      </ul>
-      <p data-testid="instructions">instructions</p>
+        <div className="btn">
+          <button
+            type="button"
+            onClick={ handleFavorite }
+            className="btn-details"
+          >
+            <img
+              src={ favorite ? blackHeartIcon : whiteHeartIcon }
+              alt="favorite"
+              data-testid="favorite-btn"
+
+            />
+          </button>
+          <button
+            type="button"
+            className="btn-details"
+            onClick={ handleShare }
+          >
+            <img
+              data-testid="share-btn"
+              src={ shareIcon }
+              alt="share"
+            />
+          </button>
+        </div>
+      </div>
+      <h1
+        data-testid="recipe-title"
+        className="title-details-container"
+      >
+        {item.strDrink || item.strMeal }
+
+      </h1>
+      <img
+        className="details-img"
+        data-testid="recipe-photo"
+        src={ item.strDrinkThumb || item.strMealThumb }
+        alt=""
+      />
+      <div className="category">
+        <h4
+          className="category-item"
+        >
+          Category:
+        </h4>
+        <p
+          data-testid="recipe-category"
+          className="category-item"
+        >
+          {item && item.strCategory}
+        </p>
+      </div>
+      { copyLink && <p>Link copied!</p> }
+      <h4>Ingredients</h4>
+      <div className="ing-contain">
+        <ul className="ingredient-progress ingredientes">
+          {
+            ingredients.map((ingredient, index) => (
+              <li key={ index }>
+                <label
+                  className={ allIngredients.includes(index) ? 'checked' : '' }
+                  data-testid={ `${index}-ingredient-step` }
+                >
+                  <input
+                    type="checkbox"
+                    id={ index }
+                    onChange={ () => handleCheckbox(index) }
+                    checked={ allIngredients.includes(index) }
+                  />
+                  { ingredient }
+                </label>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <h4>Instructions</h4>
+      <div className="ing-contain">
+        <p
+          data-testid="instructions"
+          className="instructions"
+        >
+          {item && item.strInstructions}
+        </p>
+      </div>
       <button
         type="button"
+        className="start-recipe-btn"
+
         data-testid="finish-recipe-btn"
         disabled={ ingredients.length !== allIngredients.length }
         onClick={ handleFinish }
@@ -246,5 +312,4 @@ function RecipeInProgress() {
     </div>
   );
 }
-
 export default RecipeInProgress;

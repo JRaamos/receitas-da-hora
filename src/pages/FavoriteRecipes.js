@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import FavoritesDrinks from '../components/FavoritesDrinks';
 import FavoritesMeals from '../components/FavoritesMeals';
+import favorito from '../images/button_favorite_01.png';
+import cocktail from '../images/cocktail.png';
+import all from '../images/all.png';
+import food from '../images/icon-fast-food-outline.jpg';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setfavoritRecipes] = useState([]);
@@ -39,28 +43,50 @@ function FavoriteRecipes() {
       <header>
         <Header />
       </header>
+      <div className="searchBar-contain">
+        <img
+          src={ favorito }
+          alt=""
+          className="btn-footer"
+        />
+        <h1 data-testid="page-title">Favorite Recipes</h1>
+      </div>
       <main>
-        <button
-          data-testid="filter-by-all-btn"
-          type="button"
-          onClick={ filterAll }
-        >
-          All
-        </button>
-        <button
-          data-testid="filter-by-meal-btn"
-          type="button"
-          onClick={ filterMeals }
-        >
-          Meals
-        </button>
-        <button
-          data-testid="filter-by-drink-btn"
-          type="button"
-          onClick={ filterDrinks }
-        >
-          Drinks
-        </button>
+        <div className="btn-contain2">
+          <button
+            data-testid="filter-by-all-btn"
+            type="button"
+            onClick={ filterAll }
+            className="btn-categories2"
+          >
+            <img
+              src={ food }
+              alt=""
+              className="img-btn-meals2"
+            />
+            All
+          </button>
+          <button
+            data-testid="filter-by-meal-btn"
+            type="button"
+            onClick={ filterMeals }
+            className="btn-categories2"
+
+          >
+            <img src={ all } alt="" className="img-btn-meals2" />
+
+            Meals
+          </button>
+          <button
+            className="btn-categories2"
+            data-testid="filter-by-drink-btn"
+            type="button"
+            onClick={ filterDrinks }
+          >
+            <img src={ cocktail } alt="" className="img-btn-drinks2" />
+            Drinks
+          </button>
+        </div>
         {
           favoriteRecipes && favoriteRecipes.map((recipe, index) => (
             recipe.type === 'drink'

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
@@ -8,7 +8,6 @@ import './Header.css';
 import url3 from '../images/url3.ico';
 
 function Header({ pesquisa, setPesquisa }) {
-  const [title, setTitle] = useState('');
   const state = useSelector(({ gravatar }) => gravatar.gravatar);
   const location = useLocation();
   const history = useHistory();
@@ -17,38 +16,15 @@ function Header({ pesquisa, setPesquisa }) {
     || pathname === '/done-recipes'
     || pathname === '/favorite-recipes';
 
-  // função responsavel por setar o titulo da pagina de acordo com o pathname
-  useEffect(() => {
-    const titlePage = () => {
-      switch (pathname) {
-      case '/meals':
-        setTitle('');
-        break;
-      case '/drinks':
-        setTitle('');
-        break;
-      case '/profile':
-        setTitle('Profile');
-        break;
-      case '/done-recipes':
-        setTitle('Done Recipes');
-        break;
-      default:
-        setTitle('Favorite Recipes');
-        break;
-      }
-    };
-    titlePage();
-  }, [pathname]);
-
   return (
     <header className="header-contain">
-      <img
-        className="logo"
-        src={ url3 }
-        alt="logo"
-      />
-      <h1>{title}</h1>
+      <Link to="/meals">
+        <img
+          className="logo"
+          src={ url3 }
+          alt="logo"
+        />
+      </Link>
       <div className="butons-header">
         <button
           className="btn-header"

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import mealIcon from '../images/mealIcon.svg';
 import drinkIcon from '../images/drinkIcon.svg';
+import favorito from '../images/button_favorite_01.png';
 import './Footer.css';
 
 function Footer() {
@@ -20,6 +21,13 @@ function Footer() {
           />
         </Link>
       </button>
+      <Link to="/favorite-recipes">
+        <img
+          src={ favorito }
+          alt="favorito"
+          className="btn-footer"
+        />
+      </Link>
       <button
         className="btn-footer"
       >
@@ -31,6 +39,7 @@ function Footer() {
           />
         </Link>
       </button>
+
     </div>
   );
 }

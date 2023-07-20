@@ -12,43 +12,54 @@ function DoniRecipesDrinks({ recipe, index }) {
   const handleShare = (id) => {
     copy(`http://localhost:3000/drink/${id}`);
     setCopyLink(true);
+    console.log(copyLink);
   };
   return (
-    <div>
-      <div key={ index }>
-        {
-          copyLink && <p>Link copied!</p>
-        }
+    <div className="done-contain">
+      {/*
+        copyLink && <p>Link copied!</p>
+  */}
+      <div
+        key={ index }
+        className="done-recipes-card"
+      >
         <Link to={ `/drinks/${recipe.id}` }>
           <img
             data-testid={ `${index}-horizontal-image` }
             src={ recipe.image }
             alt={ recipe.name }
+            className="done-img"
           />
-          <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
         </Link>
-        <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-        <p data-testid={ `${index}-horizontal-top-text` }>
-          {`${recipe.alcoholicOrNot}`}
-        </p>
-        <button type="button" onClick={ () => handleShare(recipe.id) }>
-          <img
-            data-testid={ `${index}-horizontal-share-btn` }
-            src={ shareIcon }
-            alt={ recipe.name }
-          />
-        </button>
-        {
-          recipe.tags.map((tag, indexTag) => (
-            <p
-              key={ indexTag }
-              data-testid={ `${index}-${tag}-horizontal-tag` }
-            >
-              {tag}
-            </p>
+        <div className="done-recipes-card-text">
+          <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
+          {/* <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p> */}
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            {`${recipe.alcoholicOrNot}`}
+          </p>
+          <button
+            type="button"
+            onClick={ () => handleShare(recipe.id) }
+            className="btn-header"
+          >
+            <img
+              data-testid={ `${index}-horizontal-share-btn` }
+              src={ shareIcon }
+              alt={ recipe.name }
+            />
+          </button>
+          {
+            recipe.tags.map((tag, indexTag) => (
+              <p
+                key={ indexTag }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                {tag}
+              </p>
 
-          ))
-        }
+            ))
+          }
+        </div>
       </div>
     </div>
   );
