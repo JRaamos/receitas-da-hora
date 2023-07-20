@@ -6,6 +6,7 @@ import favorito from '../images/button_favorite_01.png';
 import cocktail from '../images/cocktail.png';
 import all from '../images/all.png';
 import food from '../images/icon-fast-food-outline.jpg';
+import Footer from '../components/Footer';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setfavoritRecipes] = useState([]);
@@ -43,7 +44,7 @@ function FavoriteRecipes() {
       <header>
         <Header />
       </header>
-      <div className="searchBar-contain">
+      <div className="searchBar-contain title-favorit">
         <img
           src={ favorito }
           alt=""
@@ -110,6 +111,7 @@ function FavoriteRecipes() {
           ))
         }
       </main>
+      <Footer />
     </div>
 
   );

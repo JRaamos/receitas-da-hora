@@ -81,3 +81,11 @@
   justify-content: center;
   width: 170px;
 }
+
+.favorit {
+  display: flex;
+}
+
+.title-favorit {
+  margin-bottom: 40px;
+}

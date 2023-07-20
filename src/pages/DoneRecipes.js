@@ -7,6 +7,7 @@ import vector from '../images/vector.jpg';
 import cocktail from '../images/cocktail.png';
 import all from '../images/all.png';
 import food from '../images/icon-fast-food-outline.jpg';
+import Footer from '../components/Footer';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
@@ -95,6 +96,7 @@ function DoneRecipes() {
           ))
         }
       </main>
+      <Footer />
     </div>
   );
 }

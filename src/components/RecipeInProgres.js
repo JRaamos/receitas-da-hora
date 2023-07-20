@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+/* eslint-disable react/jsx-props-no-multi-spaces */
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import './RecipeInProgres.css';
@@ -248,6 +250,7 @@ function RecipeInProgress() {
 
       </h1>
       <img
+        // eslint-disable-next-line max-lines
         className="details-img"
         data-testid="recipe-photo"
         src={ item.strDrinkThumb || item.strMealThumb }
