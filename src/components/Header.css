@@ -1,14 +1,8 @@
-.pages-contain {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-
-}
-
 .main-contain {
   align-items: center;
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
 }
 
 .img {
@@ -19,8 +13,111 @@
 
 .header-contain {
   align-items: center;
-  border: 1px solid black;
+  background: #0f015f;
+  border-bottom: 1px solid #03167e;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 2px 2px 8px 3px #03167e;
+  color: aliceblue;
   display: flex;
-  margin-bottom: 20px;
+  height: 60px;
+  justify-content: space-between;
+  margin-bottom: 10px;
   width: 100%;
+}
+
+.img-gravatar {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+
+.logo {
+  border-radius: 10%;
+  height: 45px;
+  margin-left: 5%;
+  width: 55px;
+}
+
+.searchBar-contain {
+  align-items: center;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  height: 60px;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.input-search {
+  width: 340px;
+}
+
+.label-input {
+  align-items: center;
+  border: 1px solid #333232;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5px;
+  padding: 0 5px;
+}
+
+.label-input:hover {
+  background-color: #6f89c0;
+  cursor: pointer;
+}
+
+.label-input2 {
+  background: #0f015f;
+  border: 1px solid #333232;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin: 5px;
+  padding: 0 5px;
+}
+
+.butons-header {
+  display: flex;
+}
+
+.btn-header {
+  align-items: center;
+  background: #f8f6f6;
+  border-radius: 50%;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  margin: 0 5px;
+  width: 40px;
+
+}
+
+.options-contain {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 355px;
+}
+
+.btn-search {
+  align-items: center;
+  background-color: rgb(248, 245, 245);
+  border-radius: 8px;
+  display: flex;
+  height: 26px;
+  justify-content: center;
+  margin-right: 3px;
+  width: 55px;
+}
+
+.btn-search:hover {
+  background-color: #6f89c0;
+  border: 1px solid #05036b;
+  cursor: pointer;
+}
+
+.img-categories {
+  width: 20px;
 }
