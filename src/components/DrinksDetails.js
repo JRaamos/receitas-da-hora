@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function DrinksDetails({ item, ingredients, recomendacao }) {
+  console.log(recomendacao);
   return (
     <div>
       <div>
@@ -79,12 +81,13 @@ function DrinksDetails({ item, ingredients, recomendacao }) {
               >
                 { recomend.strMeal }
               </p>
-              <img
-                src={ recomend.strMealThumb }
-                alt={ recomend.strMeal }
-                className="recomendation-img"
-              />
-
+              <Link to={ `/meals/${recomend.idMeal}` }>
+                <img
+                  src={ recomend.strMealThumb }
+                  alt={ recomend.strMeal }
+                  className="recomendation-img"
+                />
+              </Link>
             </div>
           ))}
         </section>

@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function MealsDetails({ item, ingredients, recomendacao }) {
+  console.log(recomendacao);
   const validUrl = (givenUrl) => givenUrl.replace('watch', 'embed').replace(/\?v=/g, '/');
   return (
     <div>
@@ -86,11 +88,13 @@ function MealsDetails({ item, ingredients, recomendacao }) {
                 >
                   { recomend.strDrink }
                 </p>
-                <img
-                  src={ recomend.strDrinkThumb }
-                  alt={ recomend.strDrink }
-                  className="recomendation-img"
-                />
+                <Link to={ `/drinks/${recomend.idDrink}` }>
+                  <img
+                    src={ recomend.strDrinkThumb }
+                    alt={ recomend.strDrink }
+                    className="recomendation-img"
+                  />
+                </Link>
               </div>
             ))
           }
