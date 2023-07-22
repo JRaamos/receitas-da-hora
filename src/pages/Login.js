@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Login.css';
 import { useDispatch } from 'react-redux';
-import tomato from '../images/tomate.png';
+// import tomato from '../images/tomate.png';
 import { handleGravatar } from '../helpers/featFunctions';
 
 import { handleGravatarEmail } from '../redux/actions';
@@ -36,16 +36,16 @@ function Login() {
 
   return (
     <div className="login-contain">
-      <div>
+      <div className="img-contain">
         <img
           src="https://i.pinimg.com/736x/ca/d1/7f/cad17f2ce776cf9bf851effd5c16c9d4.jpg"
           alt="comida"
           className="login-img"
         />
       </div>
-      <div>
+      {/* <div>
         <img src={ tomato } alt="comida" className="tomate-img" />
-      </div>
+  </div> */}
       <form className="forms-login">
         <h1 className="login-title">Login</h1>
         <label htmlFor="email-input">

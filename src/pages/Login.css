@@ -5,10 +5,10 @@
   border: 0.5px solid #41197f;
   display: flex;
   flex-direction: column;
-  height: 800px;
-  justify-content: flex-end;
+  height: 100vh;
+  justify-content: space-around;
   margin: 0 auto;
-  width: 360px;
+
 }
 
 .forms-login {
@@ -27,9 +27,9 @@
   width: 198px;
 }
 
-.tomate-img {
-  flex-shrink: 0;
-  width: 80%;
+.img-contain {
+  height: 400px;
+  margin-top: 25px;
 }
 
 .login-title {
