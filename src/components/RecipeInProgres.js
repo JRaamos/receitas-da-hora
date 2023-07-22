@@ -249,13 +249,16 @@ function RecipeInProgress() {
         {item.strDrink || item.strMeal }
 
       </h1>
-      <img
+      <div className="detalhes-contain">
+
+        <img
         // eslint-disable-next-line max-lines
-        className="details-img"
-        data-testid="recipe-photo"
-        src={ item.strDrinkThumb || item.strMealThumb }
-        alt=""
-      />
+          className="details-img"
+          data-testid="recipe-photo"
+          src={ item.strDrinkThumb || item.strMealThumb }
+          alt=""
+        />
+      </div>
       <div className="category">
         <h4
           className="category-item"
