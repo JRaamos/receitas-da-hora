@@ -1,9 +1,7 @@
 .recomendation {
   align-items: center;
   display: flex;
-  justify-content: center;
   margin-bottom: 50px;
-  margin-left: 6px;
   overflow: auto;
   scroll-snap-type: x mandatory;
 
@@ -16,7 +14,6 @@
   padding-right: 10px;
   scroll-snap-align: center;
   width: 200px;
-
 }
 
 .recomendation-img {
