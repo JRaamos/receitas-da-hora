@@ -99,7 +99,7 @@ function RecipeInProgress() {
   const handleShare = () => {
     const type = pathname.split('/')[1];
     const id = pathname.split('/')[2];
-    copy(`http://localhost:3000/${type}/${id}`);
+    copy(`https://receitas-da-hora.vercel.app/${type}/${id}`);
     setCopyLink(true);
   };
 

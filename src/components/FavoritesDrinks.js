@@ -12,7 +12,7 @@ function FavoritesDrinks({ index, recipe, favorits }) {
 
   // função responsavel por copiar o link da pagina de receita para area de transferencia e setar o resultado booleano no stado copyLink
   const handleShare = (id) => {
-    copy(`http://localhost:3000/drinks/${id}`);
+    copy(`https://receitas-da-hora.vercel.app/drinks/${id}`);
     setCopyLink(true);
   };
   return (
