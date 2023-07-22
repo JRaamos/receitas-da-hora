@@ -76,7 +76,10 @@ function MealsDetails({ item, ingredients, recomendacao }) {
                 data-testid={ `${index}-recommendation-card` }
                 className="recomendation-card"
               >
-                <p data-testid={ `${index}-recommendation-title` }>
+                <p
+                  data-testid={ `${index}-recommendation-title` }
+                  className="recommendation-title"
+                >
                   { recomend.strDrink }
                 </p>
                 <img
