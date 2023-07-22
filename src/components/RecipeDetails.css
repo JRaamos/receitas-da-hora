@@ -22,8 +22,7 @@
   background: #f1f1f1;
   border-radius: 7px;
   bottom: 0;
-  margin-bottom: 5px;
-  margin-left: 24%;
+  margin-bottom: 15px;
   position: fixed;
   width: 200px;
   z-index: 1;
@@ -114,8 +113,8 @@
 }
 
 .instructions {
+  margin-bottom: 55px;
   padding: 10px;
-
 }
 
 .ing-contain {

@@ -302,16 +302,18 @@ function RecipeInProgress() {
           {item && item.strInstructions}
         </p>
       </div>
-      <button
-        type="button"
-        className="start-recipe-btn"
+      <div className="btn-contains">
+        <button
+          type="button"
+          className="start-recipe-btn"
 
-        data-testid="finish-recipe-btn"
-        disabled={ ingredients.length !== allIngredients.length }
-        onClick={ handleFinish }
-      >
-        Finish Recipe
-      </button>
+          data-testid="finish-recipe-btn"
+          disabled={ ingredients.length !== allIngredients.length }
+          onClick={ handleFinish }
+        >
+          Finish Recipe
+        </button>
+      </div>
     </div>
   );
 }
