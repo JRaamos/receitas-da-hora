@@ -46,9 +46,10 @@
 
 .category-name {
   font-family: Roboto , sans-serif;
+  font-size: 15px;
   margin-top: 10px;
   text-align: center;
-  width: 137px;
+  width: 127px;
 }
 
 .btn-categories:hover {
