@@ -31,7 +31,7 @@ function Recipes() {
   const dispatch = useDispatch();
   const location = useLocation();
   const { pathname } = location;
-  const number = 12;
+  const number = 22;
   const numberCategori = 5;
   const response = useSelector(({ api }) => api.response);
   const cloneApi = response.slice(0, number);

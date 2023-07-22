@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   margin-bottom: 50px;
+  margin-left: 6px;
   overflow: auto;
   scroll-snap-type: x mandatory;
 
