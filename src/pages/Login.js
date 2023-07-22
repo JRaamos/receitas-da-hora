@@ -23,10 +23,10 @@ function Login() {
         <img src={ tomato } alt="comida" className="tomate-img" />
   </div> */}
       <h1 className="login-title">
-        Seja bem vindo ao melhor app de receitas do brasil!
+        Welcome to the best recipe app you've ever seen!
       </h1>
       <p className="login-paragraph">
-        voce sera redirecionado para tela de reiceitas em segundos
+        you will be redirected to recipe screen in seconds
       </p>
     </div>
   );
