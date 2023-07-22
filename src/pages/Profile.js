@@ -10,7 +10,6 @@ import './Profile.css';
 
 function Profile() {
   const history = useHistory();
-  const email = JSON.parse(localStorage.getItem('user'));
   return (
     <div>
       <header>
@@ -25,9 +24,6 @@ function Profile() {
         <h1 data-testid="page-title">Profile</h1>
       </div>
       <main className="profile-contain">
-        <div>
-          <h4 data-testid="profile-email">{ email && email.email }</h4>
-        </div>
 
         <Link
           to="/done-recipes"

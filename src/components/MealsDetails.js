@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 function MealsDetails({ item, ingredients, recomendacao }) {
-  console.log(recomendacao);
   const validUrl = (givenUrl) => givenUrl.replace('watch', 'embed').replace(/\?v=/g, '/');
   return (
     <div>
