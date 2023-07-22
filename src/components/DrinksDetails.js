@@ -12,12 +12,15 @@ function DrinksDetails({ item, ingredients, recomendacao }) {
           {item && item.strDrink}
 
         </h1>
-        <img
-          src={ item && item.strDrinkThumb }
-          alt={ item && item.strDrink }
-          data-testid="recipe-photo"
-          className="details-img"
-        />
+        <div className="detalhes-contain">
+
+          <img
+            src={ item && item.strDrinkThumb }
+            alt={ item && item.strDrink }
+            data-testid="recipe-photo"
+            className="details-img"
+          />
+        </div>
         <div className="category">
           <h4
             className="category-item"
@@ -69,7 +72,11 @@ function DrinksDetails({ item, ingredients, recomendacao }) {
               data-testid={ `${index}-recommendation-card` }
               className="recomendation-card"
             >
-              <p data-testid={ `${index}-recommendation-title` }>
+
+              <p
+                data-testid={ `${index}-recommendation-title` }
+                className="recommendation-title"
+              >
                 { recomend.strMeal }
               </p>
               <img

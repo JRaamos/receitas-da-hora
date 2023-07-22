@@ -14,12 +14,14 @@ function MealsDetails({ item, ingredients, recomendacao }) {
           {item && item.strMeal}
 
         </h1>
-        <img
-          src={ item && item.strMealThumb }
-          alt={ item && item.strMeal }
-          data-testid="recipe-photo"
-          className="details-img"
-        />
+        <div className="detalhes-contain">
+          <img
+            src={ item && item.strMealThumb }
+            alt={ item && item.strMeal }
+            data-testid="recipe-photo"
+            className="details-img"
+          />
+        </div>
         <div className="category">
           <h4
             className="category-item"
@@ -58,14 +60,16 @@ function MealsDetails({ item, ingredients, recomendacao }) {
           </p>
         </div>
         <h1>Video</h1>
-        <iframe
-          className="video"
-          src={ validUrl(item && item.strYoutube) }
-          allow="accelerometer; autoplay; clipboard-write;
+        <div className="video-contain">
+          <iframe
+            className="video"
+            src={ validUrl(item && item.strYoutube) }
+            allow="accelerometer; autoplay; clipboard-write;
            encrypted-media; gyroscope; picture-in-picture"
-          title="YouTube video player"
-          data-testid="video"
-        />
+            title="YouTube video player"
+            data-testid="video"
+          />
+        </div>
 
         <h1>Recomendations</h1>
         <section className="recomendation">

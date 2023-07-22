@@ -27,7 +27,7 @@
 }
 
 .recommendation-title {
-  border: 1px solid #000;
+  border: 1px solid #0a0a0a;
   border-radius: 10px 10px 0 0;
   display: flex;
   justify-content: center;
@@ -97,8 +97,20 @@
 }
 
 .details-img {
+  border-radius: 15px;
+  box-shadow: 1px 1px 15px 5px #03167e;
   height: 300px;
-  margin-top: 65px;
+  margin-bottom: 25px;
+  margin-top: 102px;
+  width: 360px;
+
+}
+
+.detalhes-contain {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
 }
 
@@ -140,14 +152,28 @@
 }
 
 .video {
+  border-radius: 15px;
+  box-shadow: 1px 1px 15px 5px #03167e;
   height: 300px;
   margin-bottom: 30px;
-  width: 100%;
+  width: 380px;
+
+}
+
+.video-contain {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
 }
 
 .title-details-container {
-  color: #f7b706;
-  margin-top: 67px;
+  color: #001;
+  margin-left: 30px;
+  margin-top: 65px;
   position: absolute;
+  text-align: center;
+
+
 }
 
