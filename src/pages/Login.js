@@ -4,6 +4,7 @@ import './Login.css';
 import { useDispatch } from 'react-redux';
 import { handleGravatar } from '../helpers/featFunctions';
 import { handleGravatarEmail } from '../redux/actions';
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
