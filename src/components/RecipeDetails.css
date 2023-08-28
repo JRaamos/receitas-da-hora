@@ -4,12 +4,11 @@
   margin-bottom: 50px;
   overflow: auto;
   scroll-snap-type: x mandatory;
-
 }
 
 .recomendation-card {
   border-radius: 15px;
-  box-shadow: 1px 1px 7px  #03167e;
+  box-shadow: 1px 1px 7px #03167e;
   margin: 5px;
   padding-right: 10px;
   scroll-snap-align: center;
@@ -21,7 +20,6 @@
   height: 200px;
   object-fit: cover;
   width: 200px;
-
 }
 
 .recommendation-title {
@@ -73,7 +71,6 @@
   justify-content: center;
   margin: 0 5px;
   width: 40px;
-
 }
 
 .header-icon {
@@ -101,7 +98,6 @@
   margin-bottom: 25px;
   margin-top: 102px;
   width: 360px;
-
 }
 
 .detalhes-contain {
@@ -140,6 +136,8 @@
 }
 
 .instructions {
+  font-size: 20px;
+  line-height: 30px;
   margin-bottom: 55px;
   padding: 10px;
 }
@@ -155,14 +153,12 @@
   height: 300px;
   margin-bottom: 30px;
   width: 380px;
-
 }
 
 .video-contain {
   align-items: center;
   display: flex;
   justify-content: center;
-
 }
 
 .title-details-container {
@@ -171,7 +167,4 @@
   margin-top: 65px;
   position: absolute;
   text-align: center;
-
-
 }
-
