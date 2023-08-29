@@ -168,3 +168,11 @@
   position: absolute;
   text-align: center;
 }
+
+@media ( min-width : 1270px ) {
+
+  .recomendation {
+    justify-content: center;
+
+  }
+}

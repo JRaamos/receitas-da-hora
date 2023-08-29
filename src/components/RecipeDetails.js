@@ -178,7 +178,7 @@ function RecipeDetails() {
           )
         }
         {
-          copyLink && <p>Link copied!</p>
+          copyLink && <h4>Link copied!</h4>
         }
         <div className="btn">
           <button
