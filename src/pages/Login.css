@@ -30,6 +30,7 @@
 }
 
 .login-img {
+  animation: rotate 5s linear infinite;
   border-radius: 8px;
   flex-shrink: 0;
   height: 157.25px;
@@ -107,3 +108,15 @@
 .login-input:hover {
   border: 2px solid #19237f;
 }
+
+@keyframes rotate {
+
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
