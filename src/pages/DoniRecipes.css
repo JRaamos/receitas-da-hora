@@ -23,7 +23,6 @@
   height: 73px;
   justify-content: center;
   margin: 0 14px;
-  width: 78px;
 }
 
 .img-btn-drinks2 {
@@ -37,11 +36,11 @@
 
 .img-btn-meals2 {
   background: rgb(120, 129, 255);
-  border-radius: 50%;
+  border-radius: 48%;
   height: 65px;
   margin-top: 28px;
-  padding: 3px;
-  width: 65px;
+  padding: 4px;
+  width: 60px;
 
 }
 

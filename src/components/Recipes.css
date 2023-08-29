@@ -80,7 +80,7 @@
   box-shadow: 1px 1px 8px 3px #03167e;
   color: black;
   display: flex;
-  height: 200px;
+  height: 230px;
   justify-content: space-between;
   margin: 10px 0;
 }
@@ -98,4 +98,56 @@
 
 .img {
   border-radius: 10px;
+}
+
+.invisivel {
+  height: 220px;
+  width: 160px;
+}
+
+@media ( min-width : 600px ) {
+
+  .card-contain-meals {
+    width: 600px;
+  }
+
+  .invisivel {
+    height: 15px;
+  }
+
+  .card-contain-drinks {
+    width: 600px;
+  }
+}
+
+@media ( min-width : 800px ) {
+
+  .card-contain-meals {
+    width: 800px;
+  }
+
+  .invisivel {
+    height: 15px;
+    width: 70%;
+  }
+
+  .card-contain-drinks {
+    width: 800px;
+  }
+}
+
+@media ( min-width : 1000px ) {
+
+  .card-contain-meals {
+    width: 1100px;
+  }
+
+  .invisivel {
+    height: 200px;
+    width: 48%;
+  }
+
+  .card-contain-drinks {
+    width: 1100px;
+  }
 }

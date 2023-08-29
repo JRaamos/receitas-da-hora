@@ -31,11 +31,13 @@ function Recipes() {
   const dispatch = useDispatch();
   const location = useLocation();
   const { pathname } = location;
-  const number = 22;
+  const number = 21;
   const numberCategori = 5;
   const response = useSelector(({ api }) => api.response);
   const cloneApi = response.slice(0, number);
   const cloneData = data.slice(0, numberCategori);
+  const [invisivel, setInvisivel] = useState(false);
+  const [invisivel2, setInvisivel2] = useState(false);
 
   // função responsavel por fazer a requisicao da api de comidas e bebidas e armazenar o valor da api no redux
   const fetchMealsDrinks = async () => {
@@ -43,10 +45,12 @@ function Recipes() {
       const results = await fetchAllMeals();
       dispatch(fetchApi(results));
       setData(await fetchMealsCategories());
+      setInvisivel(true);
     } else if (pathname === '/drinks') {
       const results = await fetchAllDrinks();
       dispatch(fetchApi(results));
       setData(await fetchDrinksCategories());
+      setInvisivel2(true);
     }
   };
 
@@ -176,6 +180,11 @@ function Recipes() {
             </Link>
           </div>
         ))}
+        {
+          invisivel2
+        && <div className="invisivel" />
+        }
+
       </div>
 
       <div className="card-contain-meals">
@@ -207,6 +216,10 @@ function Recipes() {
             </Link>
           </div>
         ))}
+        {
+          invisivel
+        && <div className="invisivel" />
+        }
       </div>
     </div>
   );
